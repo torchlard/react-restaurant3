@@ -13,8 +13,8 @@ const App = () => {
   const signin = () => {
     if(account.username === 'admin'){
       changeAuth(true); 
-      changeAccount({role: 'admin'} )
-      return true;
+      changeAccount({role: 'admin'})
+      return true
     } else if (account.username === 'worker'){
       changeAuth(true); 
       changeAccount({role: 'worker'})
