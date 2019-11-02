@@ -1,20 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import LoginEx from './Login'
 
+const reducer = (prevState, newState) => ({...prevState, ...newState})
+
 const App = () => {
-  const [account, changeAccount] = useState({role: '', username: '', password: ''})
+  const [account, changeAccount] = useReducer(reducer, 
+    {role: '', username: '', password: ''})
   const [isAuthenticated, changeAuth] = useState(false)
 
   const signin = () => {
     if(account.username === 'admin'){
       changeAuth(true); 
-      changeAccount({role: 'admin', username: account.username, password:account.password} )
+      changeAccount({role: 'admin'} )
       return true;
     } else if (account.username === 'worker'){
       changeAuth(true); 
-      changeAccount({role: 'worker', username: account.username, password:account.password})
+      changeAccount({role: 'worker'})
       return true
     } else {
       changeAuth(false); 
