@@ -15,13 +15,11 @@ const Login = (props) => {
       <label>Username: 
         <input required type="text" value={props.username} id="name"
           name="username" onChange={evt => props.changeAccount({
-            username: evt.target.value, role:props.account.role, password:props.account.password }) } 
-            onKeyPress={ triggerLogin } />
+            username: evt.target.value}) }  onKeyPress={ triggerLogin } />
       </label>
       <label>Password:
         <input required type="password" value={props.password} id="password"
-          name="password" onChange={evt => props.changeAccount({
-            username: props.account.username, role:props.account.role, password:evt.target.value }) } 
+          name="password" onChange={evt => props.changeAccount({password:evt.target.value }) } 
             onKeyPress={ triggerLogin } />
       </label>
     </div>

@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import Header from './Header'
-import ManagementMenu from './manage_menu'
-import ReportMenu from './report_menu'
+import React from 'react'
+// import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
+// import Header from './Header'
+// import ManagementMenu from './manage_menu'
+// import ReportMenu from './report_menu'
 
-import Table from './Table'
-import Order from './order'
-import User from './User'
-import Menu from './Menu'
+// import Table from './Table'
+// import Order from './order'
+// import User from './User'
+// import Menu from './Menu'
 
 
 const Home = (props) => {
@@ -40,7 +40,7 @@ const Home = (props) => {
   //   )
   // }
   
-  (props.account.role === 'admin') ? <div>admin home</div> : <div>worker home</div>
+  return (props.account.role === 'admin') ? <div>admin home</div> : <div>worker home</div>
 }
 
 export default Home
