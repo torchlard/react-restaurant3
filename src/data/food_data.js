@@ -1,435 +1,435 @@
 const food = 
 [
  {
-  "foodID": 1,
-  "foodName": "Angus Burger",
+  "id": 1,
+  "name": "Angus Burger",
   "price": 30,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 2,
-  "foodName": "Chicken Muffin",
+  "id": 2,
+  "name": "Chicken Muffin",
   "price": 20,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 3,
-  "foodName": "Grill Chicken Burger",
+  "id": 3,
+  "name": "Grill Chicken Burger",
   "price": 24,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 4,
-  "foodName": "Double Cheese & Beef Burger",
+  "id": 4,
+  "name": "Double Cheese & Beef Burger",
   "price": 22,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 5,
-  "foodName": "Fish Burger",
+  "id": 5,
+  "name": "Fish Burger",
   "price": 12,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 6,
-  "foodName": "Sausage Muffin",
+  "id": 6,
+  "name": "Sausage Muffin",
   "price": 12,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 7,
-  "foodName": "Cheeseburger",
+  "id": 7,
+  "name": "Cheeseburger",
   "price": 12,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 8,
-  "foodName": "Hamburger",
+  "id": 8,
+  "name": "Hamburger",
   "price": 12,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 9,
-  "foodName": "Nugget Burger",
+  "id": 9,
+  "name": "Nugget Burger",
   "price": 18,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 10,
-  "foodName": "Veggie Burger (No meat)",
+  "id": 10,
+  "name": "Veggie Burger (No meat)",
   "price": 15,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 11,
-  "foodName": "Mexican Hot Burger",
+  "id": 11,
+  "name": "Mexican Hot Burger",
   "price": 30,
   "quantity": 600,
   "category": "Burger"
  },
  {
-  "foodID": 12,
-  "foodName": "Hawaiian Pizza",
+  "id": 12,
+  "name": "Hawaiian Pizza",
   "price": 90,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 13,
-  "foodName": "Margherita Pizza",
+  "id": 13,
+  "name": "Margherita Pizza",
   "price": 90,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 14,
-  "foodName": "Pepperoni Passion Pizza",
+  "id": 14,
+  "name": "Pepperoni Passion Pizza",
   "price": 100,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 15,
-  "foodName": "Chicken Deluxe Pizza",
+  "id": 15,
+  "name": "Chicken Deluxe Pizza",
   "price": 100,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 16,
-  "foodName": "Seafood Pizza",
+  "id": 16,
+  "name": "Seafood Pizza",
   "price": 80,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 17,
-  "foodName": "Veggie Supreme Pizza",
+  "id": 17,
+  "name": "Veggie Supreme Pizza",
   "price": 60,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 18,
-  "foodName": "Thousand Island Tuna Pizza",
+  "id": 18,
+  "name": "Thousand Island Tuna Pizza",
   "price": 70,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 19,
-  "foodName": "Peri Peri Pizza",
+  "id": 19,
+  "name": "Peri Peri Pizza",
   "price": 90,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 20,
-  "foodName": "American Hot Pizza",
+  "id": 20,
+  "name": "American Hot Pizza",
   "price": 90,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 21,
-  "foodName": "Tandoori Hot Pizza",
+  "id": 21,
+  "name": "Tandoori Hot Pizza",
   "price": 90,
   "quantity": 300,
   "category": "Pizza"
  },
  {
-  "foodID": 22,
-  "foodName": "Regular Fries",
+  "id": 22,
+  "name": "Regular Fries",
   "price": 10,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 23,
-  "foodName": "Large Fries",
+  "id": 23,
+  "name": "Large Fries",
   "price": 12,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 24,
-  "foodName": "Garlic Bread",
+  "id": 24,
+  "name": "Garlic Bread",
   "price": 10,
   "quantity": 5000,
   "category": "Sides"
  },
  {
-  "foodID": 25,
-  "foodName": "Potato Wedge",
+  "id": 25,
+  "name": "Potato Wedge",
   "price": 15,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 26,
-  "foodName": "Onion Ring",
+  "id": 26,
+  "name": "Onion Ring",
   "price": 10,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 27,
-  "foodName": "Caesar salad",
+  "id": 27,
+  "name": "Caesar salad",
   "price": 18,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 28,
-  "foodName": "Chicken Cream Soup",
+  "id": 28,
+  "name": "Chicken Cream Soup",
   "price": 16,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 29,
-  "foodName": "Napoli Meatball",
+  "id": 29,
+  "name": "Napoli Meatball",
   "price": 20,
   "quantity": 1000,
   "category": "Sides"
  },
  {
-  "foodID": 30,
-  "foodName": "Mashed Potato",
+  "id": 30,
+  "name": "Mashed Potato",
   "price": 18,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 31,
-  "foodName": "Spring Roll",
+  "id": 31,
+  "name": "Spring Roll",
   "price": 14,
   "quantity": 5000,
   "category": "Sides"
  },
  {
-  "foodID": 32,
-  "foodName": "Coleslaw",
+  "id": 32,
+  "name": "Coleslaw",
   "price": 12,
   "quantity": 9999,
   "category": "Sides"
  },
  {
-  "foodID": 33,
-  "foodName": "Grill Chicken Wings",
+  "id": 33,
+  "name": "Grill Chicken Wings",
   "price": 30,
   "quantity": 1000,
   "category": "Chicken"
  },
  {
-  "foodID": 34,
-  "foodName": "Fried Chicken Wings",
+  "id": 34,
+  "name": "Fried Chicken Wings",
   "price": 30,
   "quantity": 1000,
   "category": "Chicken"
  },
  {
-  "foodID": 35,
-  "foodName": "BBQ Chicken Wings",
+  "id": 35,
+  "name": "BBQ Chicken Wings",
   "price": 40,
   "quantity": 1000,
   "category": "Chicken"
  },
  {
-  "foodID": 36,
-  "foodName": "Chicken Pops",
+  "id": 36,
+  "name": "Chicken Pops",
   "price": 25,
   "quantity": 5000,
   "category": "Chicken"
  },
  {
-  "foodID": 37,
-  "foodName": "Chicken Strips",
+  "id": 37,
+  "name": "Chicken Strips",
   "price": 25,
   "quantity": 5000,
   "category": "Chicken"
  },
  {
-  "foodID": 38,
-  "foodName": "Quarter Grill Chicken",
+  "id": 38,
+  "name": "Quarter Grill Chicken",
   "price": 22,
   "quantity": 1000,
   "category": "Chicken"
  },
  {
-  "foodID": 39,
-  "foodName": "Half Grill Chicken",
+  "id": 39,
+  "name": "Half Grill Chicken",
   "price": 30,
   "quantity": 1000,
   "category": "Chicken"
  },
  {
-  "foodID": 40,
-  "foodName": "Whole Grill Chicken",
+  "id": 40,
+  "name": "Whole Grill Chicken",
   "price": 60,
   "quantity": 1000,
   "category": "Chicken"
  },
  {
-  "foodID": 41,
-  "foodName": "Chizza",
+  "id": 41,
+  "name": "Chizza",
   "price": 50,
   "quantity": 500,
   "category": "Chicken"
  },
  {
-  "foodID": 42,
-  "foodName": "Cocacola",
+  "id": 42,
+  "name": "Cocacola",
   "price": 10,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 43,
-  "foodName": "Sprite",
+  "id": 43,
+  "name": "Sprite",
   "price": 10,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 44,
-  "foodName": "Fanta Orange Soda",
+  "id": 44,
+  "name": "Fanta Orange Soda",
   "price": 10,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 45,
-  "foodName": "Lemon Tea",
+  "id": 45,
+  "name": "Lemon Tea",
   "price": 10,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 46,
-  "foodName": "Orange Juice",
+  "id": 46,
+  "name": "Orange Juice",
   "price": 12,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 47,
-  "foodName": "Vanilla Milkshake",
+  "id": 47,
+  "name": "Vanilla Milkshake",
   "price": 13,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 48,
-  "foodName": "Chocolate Milkshake",
+  "id": 48,
+  "name": "Chocolate Milkshake",
   "price": 13,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 49,
-  "foodName": "Strawberry Milkshake",
+  "id": 49,
+  "name": "Strawberry Milkshake",
   "price": 13,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 50,
-  "foodName": "Milktea",
+  "id": 50,
+  "name": "Milktea",
   "price": 15,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 51,
-  "foodName": "Coffee",
+  "id": 51,
+  "name": "Coffee",
   "price": 15,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 52,
-  "foodName": "Water",
+  "id": 52,
+  "name": "Water",
   "price": 10,
   "quantity": 500,
   "category": "Drinks"
  },
  {
-  "foodID": 53,
-  "foodName": "Original Cheesecake",
+  "id": 53,
+  "name": "Original Cheesecake",
   "price": 18,
   "quantity": 200,
   "category": "Desserts"
  },
  {
-  "foodID": 54,
-  "foodName": "Chocolate Cheesecake",
+  "id": 54,
+  "name": "Chocolate Cheesecake",
   "price": 18,
   "quantity": 200,
   "category": "Desserts"
  },
  {
-  "foodID": 55,
-  "foodName": "Strawberry Cheesecake",
+  "id": 55,
+  "name": "Strawberry Cheesecake",
   "price": 18,
   "quantity": 200,
   "category": "Desserts"
  },
  {
-  "foodID": 56,
-  "foodName": "Tiramisu",
+  "id": 56,
+  "name": "Tiramisu",
   "price": 24,
   "quantity": 100,
   "category": "Desserts"
  },
  {
-  "foodID": 57,
-  "foodName": "Original Sundae",
+  "id": 57,
+  "name": "Original Sundae",
   "price": 15,
   "quantity": 400,
   "category": "Desserts"
  },
  {
-  "foodID": 58,
-  "foodName": "Chocolate Sundae",
+  "id": 58,
+  "name": "Chocolate Sundae",
   "price": 15,
   "quantity": 400,
   "category": "Desserts"
  },
  {
-  "foodID": 59,
-  "foodName": "Strawberry Sundae",
+  "id": 59,
+  "name": "Strawberry Sundae",
   "price": 15,
   "quantity": 400,
   "category": "Desserts"
  },
  {
-  "foodID": 60,
-  "foodName": "Apple Pie",
+  "id": 60,
+  "name": "Apple Pie",
   "price": 10,
   "quantity": 400,
   "category": "Desserts"
  },
  {
-  "foodID": 61,
-  "foodName": "Corn Pie",
+  "id": 61,
+  "name": "Corn Pie",
   "price": 10,
   "quantity": 400,
   "category": "Desserts"
  },
  {
-  "foodID": 62,
-  "foodName": "Yogurt",
+  "id": 62,
+  "name": "Yogurt",
   "price": 15,
   "quantity": 400,
   "category": "Desserts"

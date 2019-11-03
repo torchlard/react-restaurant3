@@ -1,17 +1,18 @@
 import foodFn from './server_food'
+import masterFn from './server_masterOrder'
 
 // [{id, quantity, master_order_id, food_id}, ...]
 
 const fn = {
   // get current table orders list
-  'getTableOrders': (tableId) => {
-    const masterOrder_data = localStorage.getItem(masterOrders)
+  'getTableOrders': masterId => {
+    
     const order_data = localStorage.getItem(orders)
+    const food_data = localStorage.getItem(foods)
 
-    const last = masterOrder_data.find(i => i.completed === 0 && i.table_id === tableId)
-    const orders = order_data.filter(i => i.master_order_id === last.id)
+    const orders = order_data.filter(i => i.masterorder_id === masterId)
     const results = orders.map(i => {
-      const food = food_data.find(j => j.foodID === i.food_id);
+      const food = food_data.find(j => j.id === i.food_id);
       return {
         orderId: i.id, 
         ordered_qty: i.ordered_qty,
@@ -19,13 +20,16 @@ const fn = {
         foodName: food.foodName, 
         price: food.price * i.quantity }
     })
-    const tableNo = table_data.find(i => i.id === tableId).tableNo
-    return {orders: results, masterOrderId: last.id, tableNo: tableNo}
+    // const tableNo = table_data.find(i => i.id === tableId).tableNo
+    return {orders: results, masterOrderId: masterId}
   },
 
+  // delete certain order, release food reserve
   'deleteOrder': (orderId) => {
-    const idx = order_data.findIndex(i => i.id === orderId);
-    order_data.splice(idx,1)
+    const order_data = localStorage.getItem(orders)
+
+    const orders = order_data.filter(i => i.id !== orderId);
+    localStorage.setItem(orders, orders)
   },
 
   // check if food enough, reduce food quantity and add to order list
@@ -33,24 +37,12 @@ const fn = {
     const res = foodFn.consumeFood(orders);
     if (!res.result) return res.order;
 
+    const order_data = localStorage.getItem(orders)
     order_data.push(orders);
-  },
-
-  // freeze order list, ask customer to pay
-  'checkout': masterOrderId => {
-    masterOrder_data.find(i => i.id === masterOrderId).status = "checkout"
+    localStorage.setItem(order_data)
   }
-  
+
 }
-
-
-
-
-
-
-
-
-
 
 
 export default fn

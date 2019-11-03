@@ -1,22 +1,28 @@
 import React, {useState, useEffect, useReducer} from 'react'
 import {Link} from 'react-router-dom'
-import fn from './server/server_order'
 import Ordering from '../ordering'
 
+import orderFn from './server/server_order'
+import masterFn from './server/server_masterOrder'
 
 const reducer = (p,n) => ({...p,...n})
 const Order = props => {
 
+  const tableId = props.match.tableId;
   const [state, setState] = useReducer(reducer, {
-    orders: [], tableId: props.tableId, tableNo: '', masterOrderId: -1})
+    orders: [], 
+    tableId: tableId, 
+    tableNo: '', 
+    masterOrderId: -1 })
   const [money, setMoney] = useReducer(reducer, {
     status: "serving", paid: 0, change: 0 })
 
   const sumPrice = () => state.orders.map(i=>i.price).reduce((i,j) => i+j,0);
 
+  const masterId = masterFn.getMasterId()
   useEffect(() => {
-    const {masterOrderId, orders, tableNo} = fn.getTableOrders(state.tableId);
-    setState({ orders: orders, masterOrderId: masterOrderId, tableNo: tableNo })
+    setState({ orders: orderFn.getTableOrders(masterId), masterOrderId: masterId, 
+      tableNo: tableFn.getNoById(tableId) })
   })
 
   const deleteOrder = orderId => {

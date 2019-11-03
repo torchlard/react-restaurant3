@@ -6,18 +6,24 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom'
-import table from './data/table_data'
-// import {Order} from './order'
+import tableFn from './server/server_table'
 
 const reducer = (o,n)=>({...o,...n});
 const Table = props => {
 
-  const [state, setState] = useReducer(reducer, {tables: table, edit: false})
+  const [state, setState] = useReducer(reducer, {tables: tableFn.getAll(), edit: false})
 
-  const changeItem = (idx, obj) => setState({
+  const changeItem = (idx, obj) => {
+    setState({
       tables: state.tables.map( (item,i) => (i === idx )
-        ? Object.assign(item, obj) : item )
-    });
+        ? Object.assign(item, obj) : item ) });
+  }
+
+  const deleteTable = idx => {
+    setState({ tables: state.tables.filter(i => i.id !== idx) });
+    tableFn.deleteOne(idx)
+  }
+      
 
   return (
     <div>
@@ -54,14 +60,15 @@ const Table = props => {
 
                   { props.account.role === 'admin' ? null 
                     : <td><Link to={`/order/${item.id}`}>Go To Table</Link></td>}
-                  {state.edit ? <td><button onClick={() => setState({ 
-                      tables: state.tables.filter((item,i) => i != idx) }) }>Delete</button></td>
+                  {state.edit ? <td><button onClick={() => deleteOne(item.id) }>Delete</button></td>
                     : null }
                 </tr>
               )
             )}
         </tbody>
       </table>
+
+      <button onClick={tableFn.updateTables(state.tables)}>update</button>
     </div>
   )
 

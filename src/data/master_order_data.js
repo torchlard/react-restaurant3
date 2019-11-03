@@ -3,7 +3,7 @@
 const masterOrder = [
 {
   "id": 1,
-  "check_out_dt": '2019-01-01 12:00:00',
+  "checkout_dt": '2019-01-01 12:00:00',
   "money_return": 15,
   "payment": 30,
   "price": 15,
@@ -13,7 +13,7 @@ const masterOrder = [
 },
 {
   "id": 2,
-  "check_out_dt": '2019-01-02 12:00:00',
+  "checkout_dt": '2019-01-02 12:00:00',
   "money_return": 0,
   "payment": 0,
   "price": 0,
@@ -23,7 +23,7 @@ const masterOrder = [
 },
 {
   "id": 3,
-  "check_out_dt": '2019-01-02 12:01:00',
+  "checkout_dt": '2019-01-02 12:01:00',
   "money_return": 0,
   "payment": 0,
   "price": 0,
@@ -33,7 +33,7 @@ const masterOrder = [
 },
 {
   "id": 4,
-  "check_out_dt": '2019-01-02 12:02:00',
+  "checkout_dt": '2019-01-02 12:02:00',
   "money_return": 0,
   "payment": 0,
   "price": 0,

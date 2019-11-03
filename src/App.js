@@ -13,6 +13,8 @@ import orig_table_data from './data/table_data'
 const reducer = (o,n)=>({...o,...n})
 
 const App = () => {
+
+  // run only once to fill data
   useEffect(() => {
     localStorage.setItem(orders, orig_order_data)
     localStorage.setItem(tables, orig_table_data)
