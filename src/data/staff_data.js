@@ -1,4 +1,4 @@
-export const staff = [
+const staff = [
 {
   "id": 1,
   "age": 23,
@@ -34,6 +34,7 @@ export const staff = [
 }
 ]
 
+export default staff
 
 
 

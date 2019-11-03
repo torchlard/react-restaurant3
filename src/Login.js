@@ -1,8 +1,7 @@
 import React from 'react';
-import {BrowserRouter as Router, Route,
-  Link, Redirect, withRouter, Switch
-} from 'react-router-dom'
-import Home from './Home'
+import {BrowserRouter as Router, Route,Link, Redirect, withRouter, Switch} from 'react-router-dom'
+import Home from './Home';
+import {useRoutes, A} from 'hookrouter'
 
 
 const Login = (props) => {
@@ -37,16 +36,25 @@ const LoginEx = (props) => {
       }
     }}>Login</button>);
 
-  const LogoutButton = withRouter(({history}) =>
+  // const LoginButton = () => <Link to="/home" onClick={() => {
+  //   if(!props.signin()){
+  //     document.getElementById("name").value = ""
+  //     document.getElementById("password").value = ""
+  //     window.alert('wrong info'); 
+  //   }}} >Login</Link>
+
+  const LogoutButton = withRouter( ({history}) =>
     <button id="logout" onClick={() => { props.signout(); history.push("/") }}>Logout</button>);
+
+  // const LogoutButton = () => <Link to="/" onClick={props.signout()} >Logout</Link>
 
   return (
     <Router>
       <Route exact path="/" render={() => <Login {...props} />} />
 
       <Switch>
-        <Route exact path="/" component={LoginButton} />
-        <Route path="/" component={LogoutButton} />
+        <Route exact path="/" render={() => <LoginButton /> } />
+        <Route path="/" render={() => <LogoutButton {...props} />} />
       </Switch>
 
       <Route path="/home" render={() => 
@@ -54,6 +62,12 @@ const LoginEx = (props) => {
     </Router>
   )
 }
+
+// const LoginEx = props => {
+//   const routes = {
+//     "/"
+//   }
+// }
 
 export default LoginEx
 

@@ -1,4 +1,4 @@
-export const food = 
+const food = 
 [
  {
   "foodID": 1,
@@ -435,3 +435,5 @@ export const food =
   "category": "Desserts"
  }
 ]
+
+export default food

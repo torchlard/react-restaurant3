@@ -1,7 +1,8 @@
-export const report = [
+const report = [
   
 ]
 
+export default report
 
 
 

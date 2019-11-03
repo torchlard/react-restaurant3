@@ -1,4 +1,4 @@
-export const order = [
+const order = [
 {
   "id": 1,
   "ordered_qty": 0,
@@ -57,3 +57,5 @@ export const order = [
 }
 
 ]
+
+export default order

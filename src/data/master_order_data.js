@@ -1,6 +1,6 @@
 // state: serving, checkout, completed
 
-export const masterOrder = [
+const masterOrder = [
 {
   "id": 1,
   "check_out_dt": '2019-01-01 12:00:00',
@@ -43,6 +43,7 @@ export const masterOrder = [
 }
 ] 
 
+export default masterOrder
 
 
 

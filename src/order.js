@@ -1,14 +1,15 @@
 import React, {useState, useEffect, useReducer} from 'react'
 import {Link} from 'react-router-dom'
 import fn from './server/server_order'
+import Ordering from '../ordering'
 
 
 const reducer = (p,n) => ({...p,...n})
 const Order = props => {
 
-  const [state, setState] = useReducer(reduer, {
+  const [state, setState] = useReducer(reducer, {
     orders: [], tableId: props.tableId, tableNo: '', masterOrderId: -1})
-  const [money, setMoney] = useReducer(reduer, {
+  const [money, setMoney] = useReducer(reducer, {
     status: "serving", paid: 0, change: 0 })
 
   const sumPrice = () => state.orders.map(i=>i.price).reduce((i,j) => i+j,0);
@@ -46,58 +47,53 @@ const Order = props => {
   }
 
   return (
-    <div>
-      <p>Table No: {this.state.tableNo}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Food Name</th>
-            <th>ORdered Qty</th>
-            <th>Arrived Qty</th>
-            <th>Price($)</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {state.orders.map((item, idx) => (
-            <tr key={item.id}>
-              <td>{item.foodName}</td>
-              <td>{item.ordered_qty}</td>
-              <td>{item.arrived_qty}</td>
-              <td>{item.price}</td>
-              <button onClick={deleteOrder(item.id,idx)}>Delete</button>
+    <Router>
+      <div>
+        <p>Table No: {state.tableNo}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Food Name</th>
+              <th>ORdered Qty</th>
+              <th>Arrived Qty</th>
+              <th>Price($)</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <p>Total: { sumPrice() }</p>
+          </thead>
 
-      <Link to={`/ordering/${state.masterOrderId}`}>New Order</Link>
+          <tbody>
+            {state.orders.map((item, idx) => (
+              <tr key={item.id}>
+                <td>{item.foodName}</td>
+                <td>{item.ordered_qty}</td>
+                <td>{item.arrived_qty}</td>
+                <td>{item.price}</td>
+                <td><button onClick={deleteOrder(item.id,idx)}>Delete</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p>Total: { sumPrice() }</p>
 
-      <button onClick={() => {
-          this.setState({status: "checkout"})
-          fn.checkout(state.masterOrderId)
-        }}>Checkout</button>
-      <button onClick={}>Revert Checkout</button>
+        <Link to={`/ordering/${state.masterOrderId}`}>New Order</Link>
 
-      {
-        this.state.status === 'serving' ? '' :
-        <div>
-          <p>Customer Paid: {state.paid}</p>
-          <p>Change: {state.change}</p>
-        </div>
-      }
-    </div>
+        <button onClick={() => {
+            setState({status: "checkout"})
+            fn.checkout(state.masterOrderId)
+          }}>Checkout</button>
+        {/* <button onClick={()=>{}}>Revert Checkout</button> */}
+
+        {state.status === 'serving' ? '' :
+          <div>
+            <p>Customer Paid: {state.paid}</p>
+            <p>Change: {state.change}</p>
+          </div>
+        }
+      </div>
+      <Route path="/ordering/:id" render={() => <Ordering tableId={state.tableId} 
+        tableNo={state.tableNo} setOrder={orders => setState({orders: orders}) } /> } /> 
+    </Router>
   )
 }
-
-// class OrderEx extends PureComponent {
-//   constructor(props){
-//     this.state = {
-//       tableId: props.match.params.tableId,
-//     }
-//   }
-// }
 
 export default Order
 

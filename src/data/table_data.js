@@ -1,4 +1,4 @@
-export const table = 
+const table = 
 [
  {
   "id": 1, 
@@ -91,3 +91,5 @@ export const table =
   "available": 1
  }
 ]
+
+export default table

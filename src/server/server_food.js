@@ -12,7 +12,7 @@ const fn = {
     let invalid = [];
     orders.forEach(item => {
       const maxQty = food_data.filter(f => f.foodID === item.id)[0].quantity
-      if(maxQuty < item.quantity)
+      if(maxQty < item.quantity)
         invalid.push({id: item.id, maxQty: maxQty})
     });
 
