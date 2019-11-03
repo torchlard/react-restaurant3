@@ -59,33 +59,32 @@ const Order = props => {
         </thead>
 
         <tbody>
-          {this.state.orders.map((item, idx) => (
+          {state.orders.map((item, idx) => (
             <tr key={item.id}>
               <td>{item.foodName}</td>
               <td>{item.ordered_qty}</td>
               <td>{item.arrived_qty}</td>
               <td>{item.price}</td>
-              <button onClick={this.deleteOrder(item.id,idx)}>Delete</button>
+              <button onClick={deleteOrder(item.id,idx)}>Delete</button>
             </tr>
           ))}
         </tbody>
       </table>
       <p>Total: { sumPrice() }</p>
 
-      <Link to={`/ordering/${this.state.masterOrderId}`}>New Order</Link>
+      <Link to={`/ordering/${state.masterOrderId}`}>New Order</Link>
 
       <button onClick={() => {
           this.setState({status: "checkout"})
-          fn.checkout(this.state.masterOrderId)
+          fn.checkout(state.masterOrderId)
         }}>Checkout</button>
       <button onClick={}>Revert Checkout</button>
 
-      
       {
         this.state.status === 'serving' ? '' :
         <div>
-          <p>Customer Paid: {this.state.paid}</p>
-          <p>Change: {this.state.change}</p>
+          <p>Customer Paid: {state.paid}</p>
+          <p>Change: {state.change}</p>
         </div>
       }
     </div>

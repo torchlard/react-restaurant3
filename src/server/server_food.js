@@ -16,7 +16,7 @@ const fn = {
         invalid.push({id: item.id, maxQty: maxQty})
     });
 
-    if(invalid.length > 0) return invalid;
+    if(invalid.length > 0) return {result: false, order: invalid};
 
     // ok for all items
     orders.forEach(item => {
@@ -24,7 +24,7 @@ const fn = {
       foodItem.quantity = foodItem.quantity - item.quantity
     });
 
-    return [];
+    return {result: true, order: []};
   }
 }
 

@@ -3,17 +3,19 @@ import React, {useState, useReducer} from 'react';
 import './App.css';
 import LoginEx from './Login'
 
-const reducer = (prevState, newState) => ({...prevState, ...newState})
+const reducer = (o,n)=>({...o,...n})
 
 const App = () => {
   const [account, changeAccount] = useReducer(reducer, 
     {role: '', username: '', password: ''})
+  const [permit, setPermit] = useReducer({edit: false})
   const [isAuthenticated, changeAuth] = useState(false)
 
   const signin = () => {
     if(account.username === 'admin'){
       changeAuth(true); 
       changeAccount({role: 'admin'})
+      setPermit({edit: true})
       return true
     } else if (account.username === 'worker'){
       changeAuth(true); 
@@ -36,6 +38,7 @@ const App = () => {
       changeAccount={changeAccount} changeAuth={changeAuth}
       signin={signin} signout={signout}
       account={account} isAuthenticated={isAuthenticated}
+      permit={permit} setPermit={setPermit}
     />
   )
 }

@@ -7,23 +7,7 @@ import {
 } from 'react-router-dom'
 
 
-class Report extends Component {
-
-  constructor(props){
-    super(props)
-
-  }
-  
-  render(){
-    return (
-      <div>
-        Report
-      </div>
-    )
-  }
-  
-  
-}
+const Report = () => <div>Report menu</div>
 
 export default Report
 

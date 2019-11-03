@@ -26,6 +26,7 @@ const fn = {
     const tableNo = table_data.find(i => i.id === tableId).tableNo
     return {orders: results, masterOrderId: last.id, tableNo: tableNo}
   },
+
   'deleteOrder': (orderId) => {
     const idx = order_data.findIndex(i => i.id === orderId);
     order_data.splice(idx,1)
@@ -33,11 +34,12 @@ const fn = {
 
   // check if food enough, reduce food quantity and add to order list
   'addOrders': orders => {
-    const invalid_order = foodFn.consumeFood(orders);
-    if (invalid_order.length > 0) return invalid_order;
+    const res = foodFn.consumeFood(orders);
+    if (!res.result) return res.order;
 
     order_data.push(orders);
   },
+
   // freeze order list, ask customer to pay
   'checkout': masterOrderId => {
     masterOrder_data.find(i => i.id === masterOrderId).status = "checkout"
