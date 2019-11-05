@@ -4,35 +4,26 @@ import Food from './food'
 import fn from './server/server_order'
 
 
-
 const Ordering = props => {
   // save temp orders and go back to order review
   const ToOrderButton = withRouter( ({history}) => 
     <button onClick={() => {
-      // out: [{id, foodName, price, quantity, warning}]
       // in: [{id, maxQty}]
+      // out: [{id, foodName, price, quantity, warning}]
       let invalid_orders = updateOrder(final_orders);
       if(invalid_orders.length == 0){
         history.push("/order");
       } else {
-        setState(state => ({orderList: props.orderList.map(i => {
+        setState({orderList: props.orderList.map(i => {
           const ll = invalid_orders.find(j => j.id === i.id) 
           return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
                     : Object.assign(i,{warning: ''}) 
-        }) }))
+        }) })
       }
     }}>Confirm</button>
   )
 
-  // constructor(props){
-  //   super(props)
-  //   state = {
-  //     // [{id, foodName, price, quantity, warning}]
-  //     orderList: []
-  //   }
-  //   updateOrder = props.updateOrder
-  // }
-  const tableInfo = fn.getTableOrders(props.tableId)
+  const tableInfo = fn.getTableOrders(props.masterOrderId)
   const [orderList, setOrderList] = useState(tableInfo.orders)
 
   const addOrder = (id, foodName, price) => {
@@ -73,7 +64,7 @@ const Ordering = props => {
 
             <span>${i.price*i.quantity}</span>
             
-            <button onClick={setOrderList({orderList.filter(j => j.id !== i.id)} )}>X</button>
+            <button onClick={setOrderList(orderList.filter(j => j.id !== i.id) )}>X</button>
 
             <span>{i.warning}</span>
           </div>

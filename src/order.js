@@ -14,8 +14,8 @@ const Order = props => {
     tableId: tableId, 
     tableNo: '', 
     masterOrderId: -1 })
-  const [money, setMoney] = useReducer(reducer, {
-    status: "serving", paid: 0, change: 0 })
+  const [status, setStatus] = useState('serving')
+  const [money, setMoney] = useReducer(reducer, {paid: 0, change: 0 })
 
   const sumPrice = () => state.orders.map(i=>i.price).reduce((i,j) => i+j,0);
 
@@ -60,7 +60,7 @@ const Order = props => {
           <thead>
             <tr>
               <th>Food Name</th>
-              <th>ORdered Qty</th>
+              <th>Ordered Qty</th>
               <th>Arrived Qty</th>
               <th>Price($)</th>
             </tr>
@@ -83,20 +83,21 @@ const Order = props => {
         <Link to={`/ordering/${state.masterOrderId}`}>New Order</Link>
 
         <button onClick={() => {
-            setState({status: "checkout"})
-            fn.checkout(state.masterOrderId)
+            setStatus("checkout")
+            masterFn.checkout(state.masterOrderId)
           }}>Checkout</button>
         {/* <button onClick={()=>{}}>Revert Checkout</button> */}
 
-        {state.status === 'serving' ? '' :
+        {status === 'serving' ? '' :
           <div>
-            <p>Customer Paid: {state.paid}</p>
-            <p>Change: {state.change}</p>
+            <p>Customer Paid: {money.paid}</p>
+            <p>Change: {money.change}</p>
           </div>
         }
       </div>
-      <Route path="/ordering/:id" render={() => <Ordering tableId={state.tableId} 
-        tableNo={state.tableNo} setOrder={orders => setState({orders: orders}) } /> } /> 
+      <Route path="/ordering/:id" render={() => <Ordering {...state}
+        setOrder={orders => setState({orders: orders}) } 
+        updateOrder={updateOrder} /> } /> 
     </Router>
   )
 }
