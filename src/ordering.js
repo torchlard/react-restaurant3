@@ -1,37 +1,39 @@
 import React, {useState} from 'react'
 import {Link, withRouter} from 'react-router-dom'
-import Food from './food'
-import fn from './server/server_order'
+import Food from './Food'
+// import orderFn from './server/server_order'
 
 
 const Ordering = props => {
+
+  // const tableInfo = orderFn.getTableOrders(props.masterOrderId)
+  /* empty new order list */
+  const [orderList, setOrderList] = useState([])
+
   // save temp orders and go back to order review
   const ToOrderButton = withRouter( ({history}) => 
     <button onClick={() => {
       // in: [{id, maxQty}]
-      // out: [{id, foodName, price, quantity, warning}]
-      let invalid_orders = updateOrder(final_orders);
+      // out: [{id, name, price, quantity, warning}]
+      let invalid_orders = props.addOrders(orderList)
       if(invalid_orders.length == 0){
         history.push("/order");
       } else {
-        setState({orderList: props.orderList.map(i => {
+        setOrderList(props.orderList.map(i => {
           const ll = invalid_orders.find(j => j.id === i.id) 
           return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
                     : Object.assign(i,{warning: ''}) 
-        }) })
+        }))
       }
     }}>Confirm</button>
   )
 
-  const tableInfo = fn.getTableOrders(props.masterOrderId)
-  const [orderList, setOrderList] = useState(tableInfo.orders)
-
-  const addOrder = (id, foodName, price) => {
+  const addOrder = (id, name, price) => {
     let idx = orderList.findIndex(i => i.id === id)
     if (idx !== -1){
       orderList[idx].quantity += 1;
     } else {
-      orderList.push({id: id, foodName: foodName, price: price, quantity: 1, warning: ''})
+      orderList.push({id: id, name: name, price: price, quantity: 1, warning: ''})
     }
     setOrderList(orderList);
   }
@@ -52,15 +54,14 @@ const Ordering = props => {
 
         {orderList.map(i => (
           <div key={i.id}>
-            <p>{i.foodName}</p>
+            <p>{i.name}</p>
 
             <span><input type="number" value={i.quantity} 
               style={ (i.warning === '') ? {} : {backgroundColor: '#f00'} }
-              onChange={evt => setState(state => ({
-                orderList: orderList.map(j => j.id === i.id 
-                  ? Object.assign(j, {quantity: i.quantity-1}) : j )
-              }))
-            }/></span>
+              onChange={evt => setOrderList(orderList.map(j => j.id === i.id 
+                  ? Object.assign(j, {quantity: i.quantity-1}) : j ))
+              }
+            /></span>
 
             <span>${i.price*i.quantity}</span>
             
@@ -70,8 +71,7 @@ const Ordering = props => {
           </div>
         ))}
 
-        <p>Total: ${orderList.reduce(
-          (i,j) => i.price*i.quantity + j.price*j.quantity, 0) }</p>
+        <p>Total: ${orderList.reduce((i,j) => i.price*i.quantity + j.price*j.quantity, 0) }</p>
 
         <ToOrderButton />
       </div>

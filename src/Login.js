@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route,Link, Redirect, withRouter, Switch} from 'react-router-dom'
 import Home from './Home';
-import {useRoutes, A} from 'hookrouter'
 
 
 const Login = (props) => {

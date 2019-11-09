@@ -60,7 +60,7 @@ const Table = props => {
 
                   { props.account.role === 'admin' ? null 
                     : <td><Link to={`/order/${item.id}`}>Go To Table</Link></td>}
-                  {state.edit ? <td><button onClick={() => deleteOne(item.id) }>Delete</button></td>
+                  {state.edit ? <td><button onClick={() => tableFn.deleteOne(item.id) }>Delete</button></td>
                     : null }
                 </tr>
               )

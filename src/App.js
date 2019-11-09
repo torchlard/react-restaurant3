@@ -16,16 +16,16 @@ const App = () => {
 
   // run only once to fill data
   useEffect(() => {
-    localStorage.setItem(orders, orig_order_data)
-    localStorage.setItem(tables, orig_table_data)
-    localStorage.setItem(masterOrders, orig_masterOrder)
-    localStorage.setItem(foods, orig_food_data)
-    localStorage.setItem(reports, orig_report_data)
-    localStorage.setItem(staffs, orig_staff_data)
+    localStorage.setItem('orders', JSON.stringify(orig_order_data))
+    localStorage.setItem('tables', JSON.stringify(orig_table_data))
+    localStorage.setItem('masterOrders', JSON.stringify(orig_masterOrder))
+    localStorage.setItem('foods', JSON.stringify(orig_food_data))
+    localStorage.setItem('reports', JSON.stringify(orig_report_data))
+    localStorage.setItem('staffs', JSON.stringify(orig_staff_data))
   }, [])
 
   const [account, changeAccount] = useReducer(reducer, 
-    {role: '', username: '', password: ''})
+    {role: '', username: 'worker', password: '123'})
   const [permit, setPermit] = useReducer(reducer, {edit: false})
   const [isAuthenticated, changeAuth] = useState(false)
 

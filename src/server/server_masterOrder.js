@@ -1,14 +1,17 @@
+const dbGet = () => JSON.parse(localStorage.getItem('masterOrders'));
+
 const fn = {
   'getMasterId': tableId => {
-    const masterOrder_data = localStorage.getItem(masterOrders)
-    return masterOrder_data.find(i => i.completed === 0 && i.table_id === tableId).id;
+    const masterOrder_data = dbGet()
+    return masterOrder_data.find(i => i.status === 'completed' 
+      && i.table_id === Number(tableId)).id;
   },
 
   // freeze order list, ask customer to pay
   'checkout': masterOrderId => {
-    const masterOrder_data = localStorage.getItem(masterOrders)
+    const masterOrder_data = dbGet()
     masterOrder_data.find(i => i.id === masterOrderId).status = "checkout"
-    localStorage.setItem(masterOrders, masterOrder_data)
+    localStorage.setItem('masterOrders', masterOrder_data)
   }
   
 }

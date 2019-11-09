@@ -3,14 +3,15 @@ import { Link, withRouter} from 'react-router-dom'
 
 const Header = (props) => (
   <div>
-    <button><Link to="/home">Home</Link></button>
-      {props.title}
     { withRouter(({history}) => 
       <button onClick={() => {
         props.signout();
         history.push("/")
       }}> Logout </button>
     )}
+    
+    <button><Link to="/home">Home</Link></button>
+      {props.title}
   </div>
 )
 

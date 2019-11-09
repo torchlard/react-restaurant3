@@ -25,7 +25,7 @@ const Home = props => {
 
         <Route exact path="/management/user" render={() => <User {...props}/>} /> 
         <Route exact path="/management/menu" render={() => <Menu {...props}/> }  /> 
-        <Route exact path="/management/table" render={Table}  /> 
+        <Route exact path="/management/table" render={() => <Table {...props} />}  /> 
       </Router> )
     : (
         <Router>

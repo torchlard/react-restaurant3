@@ -1,14 +1,18 @@
 import React, {useState, useEffect, useReducer} from 'react'
-import {Link} from 'react-router-dom'
-import Ordering from '../ordering'
+import { useParams } from 'react-router'
+import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import Ordering from './ordering'
 
 import orderFn from './server/server_order'
 import masterFn from './server/server_masterOrder'
+import tableFn from './server/server_table'
 
 const reducer = (p,n) => ({...p,...n})
 const Order = props => {
 
-  const tableId = props.match.tableId;
+  const {tableId} = useParams();
+  console.log("table Id: "+tableId)
+  // const tableId = props.match.tableId;
   const [state, setState] = useReducer(reducer, {
     orders: [], 
     tableId: tableId, 
@@ -19,33 +23,34 @@ const Order = props => {
 
   const sumPrice = () => state.orders.map(i=>i.price).reduce((i,j) => i+j,0);
 
-  const masterId = masterFn.getMasterId()
+  const masterId = 1
+  // const masterId = masterFn.getMasterId()
   useEffect(() => {
     setState({ orders: orderFn.getTableOrders(masterId), masterOrderId: masterId, 
       tableNo: tableFn.getNoById(tableId) })
   })
 
   const deleteOrder = orderId => {
-    const orders = state.orders.filter(i => i.id != orderId);
+    const orders = state.orders.filter(i => i.id !== orderId);
     setState({orders: orders})
-    fn.deleteOrder(orderId)
+    orderFn.deleteOrder(orderId)
   }
 
-  const updateOrder = orders => {
+  const addOrders = orders => {
     // send added orders to server
     // {id, maxQty}
-    const invalid_orders = fn.addOrders(orders)
+    const invalid_orders = orderFn.addOrders(orders)
     if (invalid_orders.length > 0) return invalid_orders;
 
     // success, update local order list
-    let orderList = state.orderList;
+    let orderList = state.orders;
     orders.map(i => {
       let idx = orderList.findIndex(j => j.id === i.id);
       if (idx !== -1){
         orderList[idx].ordered_qty += i.quantity;
       } else {
         orderList.push({orderId: i.id, qty: i.quantity, 
-          foodName: i.foodName, price: i.price})
+          name: i.name, price: i.price})
       }
     })
     setState({orderList: orderList});
@@ -69,7 +74,7 @@ const Order = props => {
           <tbody>
             {state.orders.map((item, idx) => (
               <tr key={item.id}>
-                <td>{item.foodName}</td>
+                <td>{item.name}</td>
                 <td>{item.ordered_qty}</td>
                 <td>{item.arrived_qty}</td>
                 <td>{item.price}</td>
@@ -96,8 +101,7 @@ const Order = props => {
         }
       </div>
       <Route path="/ordering/:id" render={() => <Ordering {...state}
-        setOrder={orders => setState({orders: orders}) } 
-        updateOrder={updateOrder} /> } /> 
+        addOrders={addOrders} /> } /> 
     </Router>
   )
 }

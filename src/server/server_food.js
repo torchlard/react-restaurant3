@@ -1,22 +1,25 @@
 // foodID, foodName, price, quantity, category
 
+const dbGet = () => JSON.parse(localStorage.getItem('foods'))
+
 const fn = {
-  'getAll': () => localStorage.getItem(foods),
+
+  'getAll': dbGet,
 
   // update existing list of food info, each item has id
   'updateFood': foods => {
-    const data = localStorage.getItem(foods)
+    const data = dbGet()
     foods.forEach(i => {
       const idx = data.findIndex(j => j.id === i.id)
       Object.assign(data[idx], i)
     })
-    localStorage.setItem(data)
+    localStorage.setItem('foods', data)
   },
 
   // input: [{id, quantity}, ... ], output: [{orderId, maxQty}, ...]
   'consumeFood': orders => {
     let invalid = [];
-    const food_data = localStorage.getItem(foods)
+    const food_data = dbGet()
 
     // if any fail, not consume any
     orders.forEach(item => {
@@ -33,8 +36,13 @@ const fn = {
       Object.assign(food_data[idx], {quantity: food_data[idx] - item.quantity})
     });
 
-    localStorage.setItem(foods, food_data)
+    localStorage.setItem('foods', food_data)
     return {result: true, order: []};
+  },
+
+  'getAllCategory': () => {
+    const cats = dbGet().map(i => i.category)
+    return [...new Set(cats)]
   }
 }
 
