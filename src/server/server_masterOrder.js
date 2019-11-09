@@ -3,7 +3,7 @@ const dbGet = () => JSON.parse(localStorage.getItem('masterOrders'));
 const fn = {
   'getMasterId': tableId => {
     const masterOrder_data = dbGet()
-    return masterOrder_data.find(i => i.status === 'completed' 
+    return masterOrder_data.find(i => i.status !== 'completed' 
       && i.table_id === Number(tableId)).id;
   },
 
@@ -11,7 +11,7 @@ const fn = {
   'checkout': masterOrderId => {
     const masterOrder_data = dbGet()
     masterOrder_data.find(i => i.id === masterOrderId).status = "checkout"
-    localStorage.setItem('masterOrders', masterOrder_data)
+    localStorage.setItem('masterOrders', JSON.stringify(masterOrder_data))
   }
   
 }

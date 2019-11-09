@@ -13,7 +13,7 @@ const fn = {
       const idx = data.findIndex(j => j.id === i.id)
       Object.assign(data[idx], i)
     })
-    localStorage.setItem('foods', data)
+    localStorage.setItem('foods', JSON.stringify(data))
   },
 
   // input: [{id, quantity}, ... ], output: [{orderId, maxQty}, ...]
@@ -36,7 +36,7 @@ const fn = {
       Object.assign(food_data[idx], {quantity: food_data[idx] - item.quantity})
     });
 
-    localStorage.setItem('foods', food_data)
+    localStorage.setItem('foods', JSON.stringify(food_data))
     return {result: true, order: []};
   },
 

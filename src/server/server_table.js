@@ -1,16 +1,16 @@
 const dbGet = () => JSON.parse(localStorage.getItem('tables'));
 
 const fn = {
-  'updateTables': tables => localStorage.setItem('tables', tables),
+  'updateTables': tables => localStorage.setItem('tables', JSON.stringify(tables)),
 
-  'getAll': () => dbGet(),
+  'getAll': dbGet,
 
   'deleteOne': idx => {
     const tables = dbGet()
-    localStorage.setItem('tables', tables.filter(i => i.id !== idx))
+    localStorage.setItem('tables', JSON.stringify(tables.filter(i => i.id !== idx)))
   },
 
-  'getNoById': id => dbGet().find(i => i.id===id).tableNo
+  'getNoById': id => dbGet().find(i => i.id === Number(id)).tableNo
 }
 
 export default fn;
