@@ -8,7 +8,23 @@ const Ordering = props => {
 
   // const tableInfo = orderFn.getTableOrders(props.masterOrderId)
   /* empty new order list */
-  const [orderList, setOrderList] = useState([])
+  const orderListReducer = (state, action) => {
+    switch(action.type){
+      case 'add':
+        console.log(action.data)
+        return state.concat(action.data)
+      case 'delete':
+        return state.filter(j => j.id !== action.data)
+      case 'changeQty':
+        const {qty, id} = action.data
+        return state.map(j => j.id === id
+          ? Object.assign(j, {quantity: qty}) : j )
+      case 'default':
+        return []
+    }
+  }
+
+  const [orderList, dispatch] = useReducer(orderListReducer, [])
 
   // save temp orders and go back to order review
   const ToOrderButton = withRouter( ({history}) => 
@@ -28,15 +44,18 @@ const Ordering = props => {
     }}>Confirm</button>
   )
 
-  const addOrder = (id, name, price) => {
-    let idx = orderList.findIndex(i => i.id === id)
-    if (idx !== -1){
-      orderList[idx].quantity += 1;
-    } else {
-      orderList.push({id: id, name: name, price: price, quantity: 1, warning: ''})
-    }
-    setOrderList(orderList);
-  }
+  // const addOrder = (id, name, price) => {
+  //   console.log("addOrder",id,name,price)
+  //   // let idx = orderList.findIndex(i => i.id === id)
+  //   // console.log(idx)
+  //   // if (idx !== -1){
+  //   //   orderList[idx].quantity += 1;
+  //   // } else {
+  //   //   orderList.push({id: id, name: name, price: price, quantity: 1, warning: ''})
+  //   // }
+  //   // console.log(orderList)
+  //   setOrderList(orderList.concat({id: id, name: name, price: price, quantity: 1, warning: ''}));
+  // }
 
   const mainLayout = {
     display: 'flex',
@@ -58,14 +77,12 @@ const Ordering = props => {
 
             <span><input type="number" value={i.quantity} 
               style={ (i.warning === '') ? {} : {backgroundColor: '#f00'} }
-              onChange={evt => setOrderList(orderList.map(j => j.id === i.id 
-                  ? Object.assign(j, {quantity: i.quantity-1}) : j ))
-              }
+              onChange={evt => dispatch({type: 'changeQty', data: {id: i.id, qty: evt.target.value}})}
             /></span>
 
             <span>${i.price*i.quantity}</span>
             
-            <button onClick={setOrderList(orderList.filter(j => j.id !== i.id) )}>X</button>
+            <button onClick={() => dispatch({type: 'delete', data: i.id}) }>X</button>
 
             <span>{i.warning}</span>
           </div>

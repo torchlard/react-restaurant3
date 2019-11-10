@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import foodFn from './server/server_food'
 
 const Food = props => {
@@ -7,23 +7,26 @@ const Food = props => {
   const [currentCat, setCat] = useState(categories[0])
   const [foods, setFoods] = useState([])
 
-  setFoods(foodFn.getAll())
+  useEffect(() => {
+    setFoods(foodFn.getAll())
+  }, [])
 
   return (
     <div>
-      <ul>
+      <ul style={{listStyleType: 'none' }}>
         {categories.map((item,idx) => 
-          <li key={idx} onClick={() => setCat(item)}>{item}</li>
+          <li key={idx} style={{float: 'left'}} >
+            <button onClick={() => setCat(item)}>{item}</button>  
+          </li>
         )}
       </ul>
       <table>
-        <thead>
-          <th>Code</th>
+        <thead><tr>
           <th>Food Name</th>
           <th>Price($)</th>
           <th>Quantity</th>
           <th>Category</th>
-        </thead>
+        </tr></thead>
         
         <tbody>
           { foods
