@@ -8,6 +8,7 @@ const dbGet = name => JSON.parse(localStorage.getItem(name));
 const fn = {
   // get current table orders list
   'getTableOrders': masterId => {
+    if(masterId === -1) return []
     
     const order_data = dbGet('orders')
     const food_data = dbGet('foods')

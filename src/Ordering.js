@@ -15,15 +15,15 @@ const Ordering = props => {
     <button onClick={() => {
       // in: [{id, maxQty}]
       // out: [{id, name, price, quantity, warning}]
-      let invalid_orders = props.addOrders(orderList)
-      if(invalid_orders.length == 0){
+      props.addOrders(orderList)
+      if(!props.success){
         history.push("/order");
       } else {
-        setOrderList(props.orderList.map(i => {
-          const ll = invalid_orders.find(j => j.id === i.id) 
-          return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
-                    : Object.assign(i,{warning: ''}) 
-        }))
+        // setOrderList(props.orderList.map(i => {
+        //   const ll = invalid_orders.find(j => j.id === i.id) 
+        //   return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
+        //             : Object.assign(i,{warning: ''}) 
+        // }))
       }
     }}>Confirm</button>
   )

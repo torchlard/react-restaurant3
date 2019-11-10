@@ -25,7 +25,7 @@ const App = () => {
   }, [])
 
   const [account, changeAccount] = useReducer(reducer, 
-    {role: '', username: 'worker', password: '123'})
+    {role: 'worker', username: 'worker', password: '123'})
   const [permit, setPermit] = useReducer(reducer, {edit: false})
   const [isAuthenticated, changeAuth] = useState(false)
 

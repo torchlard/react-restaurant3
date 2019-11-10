@@ -10,7 +10,9 @@ const fn = {
     localStorage.setItem('tables', JSON.stringify(tables.filter(i => i.id !== idx)))
   },
 
-  'getNoById': id => dbGet().find(i => i.id === Number(id)).tableNo
+  'getNoById': id => {
+      return id===-1 ? [] : dbGet().find(i => i.id === Number(id)).tableNo
+    }
 }
 
 export default fn;

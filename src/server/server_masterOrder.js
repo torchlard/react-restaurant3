@@ -3,8 +3,9 @@ const dbGet = () => JSON.parse(localStorage.getItem('masterOrders'));
 const fn = {
   'getMasterId': tableId => {
     const masterOrder_data = dbGet()
-    return masterOrder_data.find(i => i.status !== 'completed' 
-      && i.table_id === Number(tableId)).id;
+    const data = masterOrder_data.find(i => i.status !== 'completed' 
+      && i.table_id === Number(tableId)) || -1;
+    return data === -1 ? -1 : data.id
   },
 
   // freeze order list, ask customer to pay

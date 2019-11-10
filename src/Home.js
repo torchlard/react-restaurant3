@@ -35,6 +35,7 @@ const Home = props => {
           <Header {...props} title="Home Page" />
           <Link to="/table">Table</Link>
 
+          <Route path="/home" render={() => <Table {...props} />} />
           <Route path="/table" render={() => <Table {...props} />} />
           <Route path="/order/:tableId" render={() => <Order {...props}/> } />
 
