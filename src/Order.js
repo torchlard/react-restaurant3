@@ -15,20 +15,23 @@ const orderReducer = (state, action) => {
       // {id, maxQty}
       const orders = action.data
       const invalid_orders = orderFn.addOrders(orders)
-      if (invalid_orders.length > 0) return {...state, success: false};
+      if (invalid_orders.length > 0) 
+        return {...state, success: false, invalid_orders: invalid_orders};
 
+      console.log(orders)
       // success, update local order list
-      let orderList = state.orders;
+      let orderList = [...state.orders];
       orders.map(i => {
         let idx = orderList.findIndex(j => j.id === i.id);
         if (idx !== -1){
           orderList[idx].ordered_qty += i.quantity;
         } else {
-          orderList.push({orderId: i.id, qty: i.quantity, 
-            name: i.name, price: i.price})
+          orderList.push({orderId: i.id, ordered_qty: i.quantity, 
+            arrived_qty: 0, foodName: i.name, price: i.price})
         }
       })
-      return {...state, orders: orderList, success: true};
+      console.log(orderList)
+      return {...state, orders: orderList, success: true, invalid_orders: []};
 
     case 'delete':
       const orderId = Number(action.data)
@@ -46,19 +49,15 @@ const orderReducer = (state, action) => {
 const Order = props => {
 
   const tableId = Number(useParams().tableId);
-  // console.log("table Id: "+tableId)
-  // const tableId = props.match.tableId;
   const masterId = masterFn.getMasterId(tableId)
 
   const [state, dispatch] = useReducer(orderReducer, {
-    // orders: [], 
-    // tableId: tableId, 
-    // masterOrderId: -1 
     tableNo: '', 
     orders: orderFn.getTableOrders(masterId), 
     tableNo: tableFn.getNoById(tableId),
     masterOrderId: masterId,
-    success: false
+    success: false,
+    invalid_orders: []
   })
 
   // useEffect(() => console.log(state) )
@@ -68,33 +67,6 @@ const Order = props => {
   const [money, setMoney] = useReducer(reducer, {paid: 0, change: 0 })
 
   const sumPrice = () => state.orders.map(i=>i.price).reduce((i,j) => i+j,0);
-
-  // const deleteOrder = orderId => {
-  //   const orders = state.orders.filter(i => i.id !== orderId);
-  //   // setState({orders: orders})
-  //   orderFn.deleteOrder(orderId)
-  // }
-
-  // const addOrders = orders => {
-  //   // send added orders to server
-  //   // {id, maxQty}
-  //   const invalid_orders = orderFn.addOrders(orders)
-  //   if (invalid_orders.length > 0) return invalid_orders;
-
-  //   // success, update local order list
-  //   let orderList = state.orders;
-  //   orders.map(i => {
-  //     let idx = orderList.findIndex(j => j.id === i.id);
-  //     if (idx !== -1){
-  //       orderList[idx].ordered_qty += i.quantity;
-  //     } else {
-  //       orderList.push({orderId: i.id, qty: i.quantity, 
-  //         name: i.name, price: i.price})
-  //     }
-  //   })
-  //   // setState({orders: orderList});
-  //   return [];
-  // }
 
   return (
     <Router>

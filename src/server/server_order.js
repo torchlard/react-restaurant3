@@ -44,6 +44,7 @@ const fn = {
     const order_data = dbGet('orders')
     order_data.push(orders);
     localStorage.setItem('orders', JSON.stringify(order_data))
+    return []
   }
 
 }

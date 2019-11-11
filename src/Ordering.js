@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useReducer} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import Food from './Food'
 // import orderFn from './server/server_order'
@@ -11,19 +11,31 @@ const Ordering = props => {
   const orderListReducer = (state, action) => {
     switch(action.type){
       case 'add':
-        console.log(action.data)
-        return state.concat(action.data)
+        // console.log(action.data)
+        const idx = action.data.id
+        let res = state.find(i => i.id === idx)
+        if(res === undefined)
+          return state.concat(action.data)
+        res.quantity++;
+        return state.map(i => i.id === idx ? res : i)
       case 'delete':
         return state.filter(j => j.id !== action.data)
       case 'changeQty':
         const {qty, id} = action.data
         return state.map(j => j.id === id
-          ? Object.assign(j, {quantity: qty}) : j )
+          ? Object.assign(j, {quantity: Math.max(qty,1) }) : j )
+      case 'failed':
+        return props.orderList.map(i => {
+          const ll = props.invalid_orders.find(j => j.id === i.id) 
+          return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
+                    : Object.assign(i,{warning: ''}) 
+        })
       case 'default':
         return []
     }
   }
 
+  // {id, name, price, quantity, warning}
   const [orderList, dispatch] = useReducer(orderListReducer, [])
 
   // save temp orders and go back to order review
@@ -35,27 +47,18 @@ const Ordering = props => {
       if(!props.success){
         history.push("/order");
       } else {
-        // setOrderList(props.orderList.map(i => {
-        //   const ll = invalid_orders.find(j => j.id === i.id) 
-        //   return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
-        //             : Object.assign(i,{warning: ''}) 
-        // }))
+        dispatch({type: 'failed'})
       }
     }}>Confirm</button>
   )
 
-  // const addOrder = (id, name, price) => {
-  //   console.log("addOrder",id,name,price)
-  //   // let idx = orderList.findIndex(i => i.id === id)
-  //   // console.log(idx)
-  //   // if (idx !== -1){
-  //   //   orderList[idx].quantity += 1;
-  //   // } else {
-  //   //   orderList.push({id: id, name: name, price: price, quantity: 1, warning: ''})
-  //   // }
-  //   // console.log(orderList)
-  //   setOrderList(orderList.concat({id: id, name: name, price: price, quantity: 1, warning: ''}));
-  // }
+  const sums = ll => {
+    let data = 0
+    for(let i of ll){
+      data += i.price*i.quantity
+    }
+    return data;
+  }
 
   const mainLayout = {
     display: 'flex',
@@ -73,14 +76,14 @@ const Ordering = props => {
 
         {orderList.map(i => (
           <div key={i.id}>
-            <p>{i.name}</p>
+            <span>{i.name}</span>
 
-            <span><input type="number" value={i.quantity} 
+            <span><input type="number" value={i.quantity} min={1} 
               style={ (i.warning === '') ? {} : {backgroundColor: '#f00'} }
               onChange={evt => dispatch({type: 'changeQty', data: {id: i.id, qty: evt.target.value}})}
             /></span>
 
-            <span>${i.price*i.quantity}</span>
+            <span>${i.price}</span>
             
             <button onClick={() => dispatch({type: 'delete', data: i.id}) }>X</button>
 
@@ -88,12 +91,12 @@ const Ordering = props => {
           </div>
         ))}
 
-        <p>Total: ${orderList.reduce((i,j) => i.price*i.quantity + j.price*j.quantity, 0) }</p>
+        <p>Total: ${ sums(orderList) }</p>
 
         <ToOrderButton />
       </div>
 
-      <Food style={group1} addOrder={addOrder} />
+      <Food style={group1} addOrder={data => dispatch({type: 'add', data: data})} />
 
     </div>
   )

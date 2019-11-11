@@ -32,7 +32,8 @@ const Food = props => {
           { foods
               .filter(i => i.category === currentCat)
               .map((item, idx) => (
-                <tr key={item.id} onClick={() => props.addOrder(item.id, item.name, item.price)} >
+                <tr key={item.id} onClick={() => props.addOrder({
+                  id:item.id, name:item.name, price:item.price, quantity:1, warning: ''})} >
                   <td> {item.name} </td>
                   <td> {item.price} </td>
                   <td> {item.quantity} </td>
