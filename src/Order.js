@@ -15,14 +15,17 @@ const orderReducer = (state, action) => {
       // {id, maxQty}
       const orders = action.data
       const invalid_orders = orderFn.addOrders(orders)
+      // some invalid orders, return list of them
       if (invalid_orders.length > 0) 
-        return {...state, success: false, invalid_orders: invalid_orders};
+        return {tableNo:state.tableNo, masterOrderId:state.masterId, success: false, invalid_orders: invalid_orders};
 
+      console.log("orders _ orderReducer")
       console.log(orders)
       // success, update local order list
       let orderList = [...state.orders];
+      /* orderId,  */
       orders.map(i => {
-        let idx = orderList.findIndex(j => j.id === i.id);
+        let idx = orderList.findIndex(j => j.orderId === i.id);
         if (idx !== -1){
           orderList[idx].ordered_qty += i.quantity;
         } else {
@@ -30,8 +33,9 @@ const orderReducer = (state, action) => {
             arrived_qty: 0, foodName: i.name, price: i.price})
         }
       })
+      console.log("orderList")
       console.log(orderList)
-      return {...state, orders: orderList, success: true, invalid_orders: []};
+      return { tableNo:state.tableNo, orders:orderList, masterOrderId:state.masterId, success: true, invalid_orders: []};
 
     case 'delete':
       const orderId = Number(action.data)
@@ -52,7 +56,6 @@ const Order = props => {
   const masterId = masterFn.getMasterId(tableId)
 
   const [state, dispatch] = useReducer(orderReducer, {
-    tableNo: '', 
     orders: orderFn.getTableOrders(masterId), 
     tableNo: tableFn.getNoById(tableId),
     masterOrderId: masterId,
@@ -95,7 +98,7 @@ const Order = props => {
             ))}
           </tbody>
         </table>
-        <p>Total: { sumPrice() }</p>
+        <p>Total: ${ sumPrice() }</p>
 
         <Link to={`/ordering/${state.masterOrderId}`}>New Order</Link>
 
@@ -113,7 +116,7 @@ const Order = props => {
         }
       </div>
       <Route path="/ordering/:id" render={() => <Ordering {...state}
-        addOrders={orders => dispatch({type: 'add', data: orders})} /> } /> 
+        addOrders={orders => {dispatch({type: 'add', data: orders}); return state.success}} /> } /> 
     </Router>
     // <div>nulls</div>
   )

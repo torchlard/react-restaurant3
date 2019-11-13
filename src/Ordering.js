@@ -6,6 +6,8 @@ import Food from './Food'
 
 const Ordering = props => {
 
+
+
   // const tableInfo = orderFn.getTableOrders(props.masterOrderId)
   /* empty new order list */
   const orderListReducer = (state, action) => {
@@ -25,7 +27,7 @@ const Ordering = props => {
         return state.map(j => j.id === id
           ? Object.assign(j, {quantity: Math.max(qty,1) }) : j )
       case 'failed':
-        return props.orderList.map(i => {
+        return state.map(i => {
           const ll = props.invalid_orders.find(j => j.id === i.id) 
           return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
                     : Object.assign(i,{warning: ''}) 
@@ -41,10 +43,10 @@ const Ordering = props => {
   // save temp orders and go back to order review
   const ToOrderButton = withRouter( ({history}) => 
     <button onClick={() => {
-      // in: [{id, maxQty}]
-      // out: [{id, name, price, quantity, warning}]
-      props.addOrders(orderList)
-      if(!props.success){
+      // in: [{id, maxQty}],  out: [{id, name, price, quantity, warning}]
+      const flag = props.addOrders(orderList)
+      console.log("success: "+props.success)
+      if(props.success){
         history.push("/order");
       } else {
         dispatch({type: 'failed'})

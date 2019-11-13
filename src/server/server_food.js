@@ -33,7 +33,7 @@ const fn = {
     // ok for all items
     orders.forEach(item => {
       const idx = food_data.findIndex(f => f.id === item.id)
-      Object.assign(food_data[idx], {quantity: food_data[idx] - item.quantity})
+      food_data[idx].quantity += -item.quantity
     });
 
     localStorage.setItem('foods', JSON.stringify(food_data))
