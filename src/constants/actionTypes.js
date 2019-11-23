@@ -1,4 +1,6 @@
 export const ACCOUNT_SIGNIN = 'ACCOUNT_SIGNIN'
+export const ACCOUNT_SIGNOUT = 'ACCOUNT_SIGNOUT'
+export const ACCOUNT_SYNC = 'ACCOUNT_SYNC'
 
 
 

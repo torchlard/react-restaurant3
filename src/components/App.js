@@ -44,36 +44,37 @@ const App = () => {
   // const [permit, setPermit] = useReducer(reducer, {edit: false})
   // const [isAuthenticated, changeAuth] = useState(false)
 
-  const signin = () => {
-    if(account.username === 'admin'){
-      changeAuth(true); 
-      changeAccount({role: 'admin'})
-      setPermit({edit: true})
-      return true
-    } else if (account.username === 'worker'){
-      changeAuth(true); 
-      changeAccount({role: 'worker'})
-      return true
-    } else {
-      changeAuth(false); 
-      changeAccount({role: '', username: '', password: ''})
-      return false
-    }
-  }
+  // const signin = () => {
+  //   if(account.username === 'admin'){
+  //     changeAuth(true); 
+  //     changeAccount({role: 'admin'})
+  //     setPermit({edit: true})
+  //     return true
+  //   } else if (account.username === 'worker'){
+  //     changeAuth(true); 
+  //     changeAccount({role: 'worker'})
+  //     return true
+  //   } else {
+  //     changeAuth(false); 
+  //     changeAccount({role: '', username: '', password: ''})
+  //     return false
+  //   }
+  // }
 
-  const signout = () => {
-    changeAuth(false); 
-    changeAccount({role: '', username: '', password: ''})
-  }
+  // const signout = () => {
+  //   changeAuth(false); 
+  //   changeAccount({role: '', username: '', password: ''})
+  // }
 
   return (
     <GlobalContext.Provider value={props}>
-      <LoginEx 
+      {/* <LoginEx 
         changeAccount={changeAccount} changeAuth={changeAuth}
         signin={signin} signout={signout}
         account={account} isAuthenticated={isAuthenticated}
         permit={permit} setPermit={setPermit}
-      />
+      /> */}
+      <LoginEx />
     </GlobalContext.Provider>
 
   )
