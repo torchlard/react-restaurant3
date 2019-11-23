@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import foodFn from './server/server_food'
+import foodFn from '../server/server_food'
 
 const Food = props => {
 

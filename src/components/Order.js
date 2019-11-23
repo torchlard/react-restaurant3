@@ -3,9 +3,9 @@ import { useParams } from 'react-router'
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Ordering from './Ordering'
 
-import orderFn from './server/server_order'
-import masterFn from './server/server_masterOrder'
-import tableFn from './server/server_table'
+import orderFn from '../server/server_order'
+import masterFn from '../server/server_masterOrder'
+import tableFn from '../server/server_table'
 
 const reducer = (p,n) => ({...p,...n})
 const orderReducer = (state, action) => {

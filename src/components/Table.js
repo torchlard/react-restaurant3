@@ -6,7 +6,7 @@ import {
   Redirect,
   withRouter
 } from 'react-router-dom'
-import tableFn from './server/server_table'
+import tableFn from '../server/server_table'
 
 const reducer = (o,n)=>({...o,...n});
 const Table = props => {
