@@ -21,6 +21,9 @@ export default (state, action, dispatch) => {
       else
         return {...state, password: action.data.payload}
 
+    default:
+      return state
+
   }
 }
 

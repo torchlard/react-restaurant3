@@ -20,15 +20,19 @@ const fn = {
   'consumeFood': orders => {
     
     const food_data = dbGet()
+    let invalid = false
 
     // if any fail, not consume any
     orders.forEach((item,idx) => {
       const maxQty = food_data.filter(f => f.id === item.id)[0].quantity
-      if(maxQty < item.quantity)
-        invalid.push({id: item.id, maxQty: maxQty})
+      if(maxQty < item.quantity){
+        orders[idx]['warning'] = 'not enough'
+        orders[idx]['maxQty'] = maxQty
+        invalid = true
+      }
     });
 
-    if(invalid.length > 0) return {result: false, order: invalid};
+    if(invalid) return {result: false, orders: orders};
 
     // ok for all items
     orders.forEach(item => {
@@ -37,7 +41,7 @@ const fn = {
     });
 
     localStorage.setItem('foods', JSON.stringify(food_data))
-    return {result: true, order: []};
+    return {result: true, order: orders};
   },
 
   'getAllCategory': () => {

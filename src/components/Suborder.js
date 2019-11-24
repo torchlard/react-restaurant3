@@ -1,35 +1,23 @@
-import React, {useState, useReducer} from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import React, {useContext, useEffect, useRef} from 'react'
+import {Redirect} from 'react-router-dom'
 import Food from './Food'
-import { SUBORDER_CHANGEQTY, SUBORDER_DELETE, SUBORDER_ADD, ORDER_ADD, SUBORDER_INIT } from '../constants/actionTypes'
+import { SUBORDER_CHANGEQTY, SUBORDER_DELETE, ORDER_ADD, SUBORDER_INIT } from '../constants/actionTypes'
 import {GlobalContext} from '../GlobalContext'
 
-export default Suborder = () => {
-  const [state, dispatch] = useContext(GlobalContext)
-
-  // save temp orders and go back to order review
-  // const ToOrderButton = withRouter( ({history}) => 
-  //   <button onClick={() => {
-  //     // in: [{id, maxQty}],  out: [{id, name, price, quantity, warning}]
-  //     const flag = state.addOrders(orderList)
-  //     console.log("success: "+state.success)
-  //     if(state.success){
-  //       history.push("/order");
-  //     } else {
-  //       dispatch({type: 'failed'})
-  //     }
-  //   }}>Confirm</button>
-  // )
+export default () => {
+  const {state, dispatch} = useContext(GlobalContext)
+  // const dispatch = useRef(_dispatch)
 
   useEffect(() => dispatch(SUBORDER_INIT), [])
 
-  const sums = ll => {
-    let data = 0
-    for(let i of ll){
-      data += i.price*i.quantity
-    }
-    return data;
-  }
+  // const sums = ll => {
+  //   let data = 0
+  //   for(let i of ll){
+  //     data += i.price*i.quantity
+  //   }
+  //   return data;
+  // }
+  const sums = () => state.suborders.map(i=>i.price*i.quantity).reduce((i,j)=>i+j,0)
 
   const mainLayout = {
     display: 'flex',
@@ -63,23 +51,19 @@ export default Suborder = () => {
           </div>
         ))}
 
-        <p>Total: ${ sums(state.suborders) }</p>
+        <p>Total: ${ sums() }</p>
 
         <button onClick={() => dispatch(ORDER_ADD)}>Confirm</button>
       </div>
 
       <Food style={group1} />
       
-      {state.current.suborder && <Redirect to={`/order/${state.tableId}`} /> }
+      {!state.current.suborder && <Redirect to={`/order/${state.tableId}`} /> }
 
     </div>
   )
 
-
 }
-
-
-// export default Suborder;
 
 
 

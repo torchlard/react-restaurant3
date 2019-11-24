@@ -1,14 +1,21 @@
 import React, {useContext, useEffect} from 'react';
-import {BrowserRouter as Router, Route,Link, Redirect, withRouter, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Home from './Home';
 import { GlobalContext } from '../GlobalContext';
 import {ACCOUNT_SYNC, ACCOUNT_SIGNIN, ACCOUNT_SIGNOUT} from '../constants/actionTypes'
 
 
 
-const LoginEx = () => {
+export default () => {
 
-  const [state, dispatch] = useContext(GlobalContext)
+  console.log(useContext(GlobalContext))
+  const {state, dispatch} = useContext(GlobalContext)
+  // const dispatch = useRef(_dispatch)
+
+  useEffect(() => {
+    if(!state.authenticated) window.alert('wrong info')
+  }, [state.authenticated])
+
 
   const Login = () => {
     const triggerLogin = evt => {if(evt.key === 'Enter') document.getElementById("login").click() };
@@ -35,10 +42,6 @@ const LoginEx = () => {
   const LoginButton = <button id="login" onClick={() => dispatch(ACCOUNT_SIGNIN)}>Login</button>
   const LogoutButton = <button id="logout" onClick={() => dispatch(ACCOUNT_SIGNOUT)}>Logout</button>;
 
-  useEffect(() => {
-    if(!state.authenticated) window.alert('wrong info')
-  }, [state.authenticated])
-
 
   return (
     <Router>
@@ -46,15 +49,14 @@ const LoginEx = () => {
       <Route path="/home" render={() => state.authenticated ? <Home /> : <Redirect to="/" /> } />
 
       <Switch>
-        <Route exact path="/" render={() => <LoginButton /> } />
-        <Route path="/" render={() => <LogoutButton />} />
+        <Route exact path="/" component={LoginButton} />
+        <Route path="/" component={LogoutButton} />
       </Switch>
 
     </Router>
   )
 }
 
-export default LoginEx
 
 
 

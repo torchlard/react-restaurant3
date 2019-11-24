@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import foodFn from '../server/server_food'
+import React, {useContext, useEffect, useRef} from 'react'
 import {GlobalContext} from '../GlobalContext'
 import { FOOD_INIT, FOOD_SETCAT, SUBORDER_ADD } from '../constants/actionTypes'
 
 const Food = () => {
 
-  const [state, dispatch] = useContext(GlobalContext)
+  const {state, dispatch} = useContext(GlobalContext)
+  // const dispatch = useRef(_dispatch)
 
   useEffect(() => dispatch(FOOD_INIT), [])
 

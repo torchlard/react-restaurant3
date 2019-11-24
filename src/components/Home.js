@@ -1,19 +1,20 @@
-import React, {useRoutes} from 'react'
+import React, {useContext} from 'react'
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Header from './Header'
-import ManagementMenu from './manage_menu'
-import ReportMenu from './report_menu'
-import GlobalContext from '../GlobalContext'
+// import ManagementMenu from './manage_menu'
+// import ReportMenu from './report_menu'
+import {GlobalContext} from '../GlobalContext'
 
 import Table from './Table'
 import Order from './Order'
-import User from './User'
-import Menu from './Menu'
+import Suborder from './Suborder'
+// import User from './User'
+// import Menu from './Menu'
 
 
 const Home = () => {
 
-  const [state, dispatch] = useContext(GlobalContext)
+  const {state} = useContext(GlobalContext)
 
   return (state.account.role === 'admin') 
     ? ( 
@@ -35,13 +36,13 @@ const Home = () => {
       )
     : (
         <Router>
-          <Header title="Home Page" />
+          <Header />
           <Link to="/table">Table</Link>
 
           <Route path="/home" component={Table} />
           <Route path="/table" component={Table} />
           <Route path="/order/:tableId" component={Order} />
-          <Route path="/suborder/:id" component={Suborder} /> } /> 
+          <Route path="/suborder" component={Suborder} /> } /> 
 
 
         </Router>

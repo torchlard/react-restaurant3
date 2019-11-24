@@ -22,15 +22,14 @@ export default (state, action, dispatch) => {
       return {...state, suborders: state.suborders.filter(j => j.id !== action.id)}
 
     case SUBORDER_CHANGEQTY:
-      const {qty, id} = action.data
-      return state.map(j => j.id === id
-        ? Object.assign(j, {quantity: Math.max(qty,1) }) : j )
+      return {...state, suborders: state.suborders.map(j => j.id === action.id
+        ? Object.assign(j, {quantity: Math.max(action.qty,1) }) : j )}
 
-    case SUBORDER_FAILED:
-      return state.map(i => {
-        const ll = props.invalid_orders.find(j => j.id === i.id) 
-        return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
-                  : Object.assign(i,{warning: ''}) 
+    // case SUBORDER_FAILED:
+    //   return state.map(i => {
+    //     const ll = props.invalid_orders.find(j => j.id === i.id) 
+    //     return ll ? Object.assign(i,{warning: `max ${ll.maxQty}`}) 
+    //               : Object.assign(i,{warning: ''}) 
 
   }
 }

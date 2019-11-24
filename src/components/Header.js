@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link, withRouter} from 'react-router-dom';
+import React, {useContext} from 'react'
+import { Link} from 'react-router-dom';
+import { GlobalContext } from '../GlobalContext';
 
 // const Header = (props) => (
 //   <div>
@@ -15,17 +16,18 @@ import { Link, withRouter} from 'react-router-dom';
 //   </div>
 // )
 
-const Header = (props) => {
+const Header = () => {
+  const {state} = useContext(GlobalContext)
 
-  const Gohome = withRouter(({history}) => 
-      <button onClick={() => {
-        props.signout(); history.push("/")
-      }}> Logout </button> )
+  // const Gohome = withRouter(({history}) => 
+  //     <button onClick={() => {
+  //       props.signout(); history.push("/")
+  //     }}> Logout </button> )
 
   return (
     <div>
       {/* <Gohome /> */}
-      <span> {props.title} </span>  
+      <span> {state.current.title} </span>  
       <button><Link to="/home">Home</Link></button>
     </div>
   )

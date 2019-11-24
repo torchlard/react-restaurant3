@@ -39,12 +39,12 @@ export default fn = {
   // check if food enough, reduce food quantity and add to order list
   'addOrders': orders => {
     const res = foodFn.consumeFood(orders);
-    if (!res.result) return res.order;
+    if (!res.result) return res;
 
     const order_data = dbGet('orders')
     order_data.push(orders);
     localStorage.setItem('orders', JSON.stringify(order_data))
-    return []
+    return res
   }
 
 }

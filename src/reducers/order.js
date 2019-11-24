@@ -1,28 +1,29 @@
 import { ORDER_ADD, ORDER_DELETE, ORDER_INIT } from '../constants/actionTypes'
-import orderFn from '../server/server_table'
+import orderFn from '../server/server_order'
+import tableFn from '../server/server_table'
 
 export default (state, action, dispatch) => {
   switch(action.type){
     case ORDER_INIT:
-      return {...state, orders: orderFn.getTableOrders(action.masterId), 
+      const masterId = masterFn.getMasterId(action.tableId)
+      return {...state, orders: orderFn.getTableOrders(masterId), 
         tableNo: tableFn.getNoById(action.tableId),
-        masterOrderId: action.masterId,
-        invalid_orders: [] 
+        masterOrderId: masterId,
+        current: {...current, suborder: true}
       }
 
     case ORDER_ADD:
       // const orders = action.data
-      const invalid_orders = orderFn.addOrders(state.suborders)
-      // some invalid orders, return list of them
-      if (invalid_orders.length > 0) 
-        return {...state, isSuccess: false, resultData: invalid_orders};
+      const res = orderFn.addOrders(state.suborders)
+      if (!res.result) 
+        return {...state, suborders: res.orders};
 
       console.log("orders _ orderReducer")
-      console.log(orders)
+      console.log(res)
       // success, update local order list
       let orderList = [...state.orders];
-      /* orderId,  */
-      orders.map(i => {
+
+      res.orders.map(i => {
         let idx = orderList.findIndex(j => j.orderId === i.id);
         if (idx !== -1){
           orderList[idx].ordered_qty += i.quantity;
@@ -33,7 +34,7 @@ export default (state, action, dispatch) => {
       })
       console.log("orderList")
       console.log(orderList)
-      return {  orders:orderList, isSuccess: true, resultData: []};
+      return { orders:orderList, suborders: [], current: {...current, suborders: false}};
 
     case ORDER_DELETE:
       const orderId = Number(action.data)

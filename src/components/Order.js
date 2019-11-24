@@ -1,23 +1,20 @@
-import React, {useEffect} from 'react'
+import React, {useRef,useEffect, useContext} from 'react'
 import { useParams } from 'react-router'
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import Suborder from './Suborder'
-import GlobalContext from '../GlobalContext'
+import {Link } from 'react-router-dom'
+import {GlobalContext} from '../GlobalContext'
 
-import masterFn from '../server/server_masterOrder'
-import { ORDER_INIT, ORDER_DELETE, ORDER_ADD, SUBORDER_TOGGLE } from '../constants/actionTypes'
+import { ORDER_INIT, ORDER_DELETE } from '../constants/actionTypes'
 
 
 const Order = () => {
 
-  const tableId = Number(useParams().tableId);
-  const masterId = masterFn.getMasterId(tableId)
-
+  const {state, dispatch} = useContext(GlobalContext)
+  // const dispatch = useRef(_dispatch)
+  const tableId = useRef(Number(useParams().tableId))
   useEffect(() => {
-    dispatch({type: ORDER_INIT, tableId: tableId, masterId: masterId })
+    dispatch({type: ORDER_INIT, tableId: tableId})
   }, [])
 
-  const [state, dispatch] = useContext(GlobalContext)
   const sumPrice = () => state.orders.map(i=>i.price).reduce((i,j) => i+j,0);
 
   return (
@@ -36,20 +33,19 @@ const Order = () => {
         <tbody>
           {state.orders.map((item, idx) => (
             <tr key={idx}>
-              <td>{item.foodName}</td>
-              <td>{item.ordered_qty}</td>
-              <td>{item.arrived_qty}</td>
+              <td>{item.name}</td>
+              <td>{item.orderQty}</td>
+              <td>{item.arriveQty}</td>
               <td>{item.price}</td>
               <td><button onClick={() => dispatch(
-                {type:ORDER_DELETE, data: item.orderId})}>Delete</button></td>
+                {type:ORDER_DELETE, data: item.id})}>Delete</button></td>
             </tr>
           ))}
         </tbody>
       </table>
       <p>Total: ${ sumPrice() }</p>
 
-      {/* <button onClick={dispatch({type: SUBORDER_TOGGLE, data: true})}>New Order</button> */}
-      <Link to={`/suborder/${state.masterOrderId}`}>New Order</Link>
+      <Link to={`/suborder`}>New Order</Link>
 
       {/* <button onClick={() => {
           setStatus("checkout")
@@ -64,7 +60,7 @@ const Order = () => {
         </div>
       }
 
-      {state.current.suborder && <Suborder /> }
+      {/* {state.current.suborder && <Suborder /> } */}
   {/* <Route path="/ordering/:id" render={() => <Ordering addOrders={orders => {dispatch({type: ORDER_ADD, data: orders}); return state.success}} /> } />  */}
 
 

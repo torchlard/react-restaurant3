@@ -16,14 +16,16 @@ export const initState = {
   orders: [],     // id, orderQty, arriveQty, name, price
   suborders: [],  // id, name, price, quantity, maxqty, warning 
   foods: [],      // name, price, quantity, category
-  categories,
+  categories: '',
   current: {
     status: 'serving', paid: 0, change: 0,
     suborder: false,
-    currentCat: ''
+    currentCat: '',
+    title: ''
   },
   tableId: -1,
   masterId: -1,
+  tabkeNo: -1,
   isSuccess: true,  // return value 
   resultData: []
 }

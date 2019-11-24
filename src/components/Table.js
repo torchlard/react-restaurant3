@@ -1,12 +1,14 @@
-import React, {useReducer} from 'react'
-import {BrowserRouter as Router,Link} from 'react-router-dom'
+import React, {useContext, useEffect, useRef} from 'react'
+import {Link} from 'react-router-dom'
 import tableFn from '../server/server_table'
-import { TABLE_EDIT, TABLE_CHANGE, TABLE_DELETE } from '../constants/actionTypes'
-import GlobalContext from '../GlobalContext'
+import { TABLE_INIT, TABLE_EDIT, TABLE_CHANGE, TABLE_DELETE } from '../constants/actionTypes'
+import {GlobalContext} from '../GlobalContext'
 
 const Table = () => {
 
-  const [state, dispatch] = useContext(GlobalContext)
+  const {state, dispatch} = useContext(GlobalContext)
+  // const dispatch = useRef(_dispatch)
+
   useEffect(() => dispatch(TABLE_INIT), [])
   useEffect(() => tableFn.updateTables(state.tables), [state.tables])
 

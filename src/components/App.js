@@ -1,6 +1,6 @@
-import React, {useState, useReducer, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import LoginEx from './Login'
+import Login from './Login'
 import orig_food_data from '../data/food_data'
 import orig_masterOrder from '../data/master_order_data'
 import orig_order_data from '../data/order_data'
@@ -9,7 +9,7 @@ import orig_staff_data from '../data/staff_data'
 import orig_table_data from '../data/table_data'
 import { initState } from '../GlobalContext';
 import accountReducer from '../reducers/account'
-import GlobalContext from '../GlobalContext'
+import {GlobalContext} from '../GlobalContext'
 
 const combineReducer = (dispatch, state, action, reducers) => {
     const data = (typeof action === "string") ? {type: action} : action
@@ -21,7 +21,7 @@ const combineReducer = (dispatch, state, action, reducers) => {
     });
   }
 
-const App = () => {
+export default () => {
 
   // run only once to fill data
   useEffect(() => {
@@ -43,10 +43,9 @@ const App = () => {
 
   return (
     <GlobalContext.Provider value={props}>
-      <LoginEx />
+      <Login />
     </GlobalContext.Provider>
 
   )
 }
 
-export default App;
