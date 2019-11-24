@@ -1,5 +1,4 @@
 import React, {useState, useReducer, useEffect} from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import LoginEx from './Login'
 import orig_food_data from '../data/food_data'
@@ -11,13 +10,15 @@ import orig_table_data from '../data/table_data'
 import { initState } from '../GlobalContext';
 import accountReducer from '../reducers/account'
 
-const combineReducer = (dispatch, state, action, reducers) => 
-  reducers.forEach(fn => {
-    const res = fn(state, action, dispatch)
-    if(res !== undefined) {
-      dispatch(res)
-    }
-  });
+const combineReducer = (dispatch, state, action, reducers) => {
+    const data = (typeof action === "string") ? {type: action} : action
+    reducers.forEach(fn => {
+      const res = fn(state, data, dispatch)
+      if(res !== undefined) {
+        dispatch(res)
+      }
+    });
+  }
 
 const App = () => {
 
@@ -39,41 +40,8 @@ const App = () => {
       [accountReducer] )
   }
 
-  // const [account, changeAccount] = useReducer(reducer, 
-  //   {role: 'worker', username: 'worker', password: '123'})
-  // const [permit, setPermit] = useReducer(reducer, {edit: false})
-  // const [isAuthenticated, changeAuth] = useState(false)
-
-  // const signin = () => {
-  //   if(account.username === 'admin'){
-  //     changeAuth(true); 
-  //     changeAccount({role: 'admin'})
-  //     setPermit({edit: true})
-  //     return true
-  //   } else if (account.username === 'worker'){
-  //     changeAuth(true); 
-  //     changeAccount({role: 'worker'})
-  //     return true
-  //   } else {
-  //     changeAuth(false); 
-  //     changeAccount({role: '', username: '', password: ''})
-  //     return false
-  //   }
-  // }
-
-  // const signout = () => {
-  //   changeAuth(false); 
-  //   changeAccount({role: '', username: '', password: ''})
-  // }
-
   return (
     <GlobalContext.Provider value={props}>
-      {/* <LoginEx 
-        changeAccount={changeAccount} changeAuth={changeAuth}
-        signin={signin} signout={signout}
-        account={account} isAuthenticated={isAuthenticated}
-        permit={permit} setPermit={setPermit}
-      /> */}
       <LoginEx />
     </GlobalContext.Provider>
 

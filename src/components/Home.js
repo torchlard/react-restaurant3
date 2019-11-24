@@ -10,9 +10,11 @@ import User from './User'
 import Menu from './Menu'
 
 
-const Home = props => {
+const Home = () => {
 
-  return (props.account.role === 'admin') 
+  const [state, dispatch] = useContext(GlobalContext)
+
+  return (state.account.role === 'admin') 
     ? ( 
         <div>hi</div>
       // <Router> 
@@ -32,12 +34,12 @@ const Home = props => {
       )
     : (
         <Router>
-          <Header {...props} title="Home Page" />
+          <Header title="Home Page" />
           <Link to="/table">Table</Link>
 
-          <Route path="/home" render={() => <Table {...props} />} />
-          <Route path="/table" render={() => <Table {...props} />} />
-          <Route path="/order/:tableId" render={() => <Order {...props}/> } />
+          <Route path="/home" component={Table} />
+          <Route path="/table" component={Table} />
+          <Route path="/order/:tableId" component={Order} />
 
         </Router>
     )

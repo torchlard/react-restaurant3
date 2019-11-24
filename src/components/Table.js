@@ -1,35 +1,20 @@
 import React, {useReducer} from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
+import {BrowserRouter as Router,Link} from 'react-router-dom'
 import tableFn from '../server/server_table'
+import { TABLE_EDIT, TABLE_CHANGE, TABLE_DELETE } from '../constants/actionTypes'
 
-const reducer = (o,n)=>({...o,...n});
-const Table = props => {
+const Table = () => {
 
-  const [state, setState] = useReducer(reducer, {tables: tableFn.getAll(), edit: false})
+  const [state, dispatch] = useContext(GlobalContext)
+  useEffect(() => dispatch(TABLE_INIT), [])
+  useEffect(() => tableFn.updateTables(state.tables), [state.tables])
 
-  const changeItem = (idx, obj) => {
-    setState({
-      tables: state.tables.map( (item,i) => (i === idx )
-        ? Object.assign(item, obj) : item ) });
-  }
-
-  const deleteTable = idx => {
-    setState({ tables: state.tables.filter(i => i.id !== idx) });
-    tableFn.deleteOne(idx)
-  }
-      
+  const edit = state.edit.table      
 
   return (
     <div>
-      {props.permit.edit ?
-        <button onClick={() => setState({edit: !state.edit })}>
-          {state.edit ? 'Edit' : 'Read only'}</button> : '' }
+      {state.permit.edit &&
+        <button onClick={() => dispatch(TABLE_EDIT) }>{edit ? 'Edit' : 'Read only'}</button> }
 
       <table>
         <thead>
@@ -40,35 +25,38 @@ const Table = props => {
           </tr>
         </thead>
         <tbody>
-          { state.tables.map((item, idx) => (
-                <tr key={item.id}>
-                  <td>{!state.edit ? <span>{item.tableNo}</span> 
-                    : <input type="text" name="tableNo" 
-                    value={item.tableNo} readOnly={!state.edit}
-                    onChange={event => changeItem(idx, {'tableNo': event.target.value})
-                    }/>}</td>
+        { state.tables.map((item, idx) => (
+          <tr key={item.id}>
+            <td>{!state.edit ? <span>{item.tableNo}</span> 
+              : <input type="text" name="tableNo" 
+              value={item.tableNo} readOnly={!edit}
+              onChange={evt => dispatch({
+                type: TABLE_CHANGE, data: {idx, obj: {'tableNo': evt.target.value}} }) }
+              />}</td>
 
-                  <td>{!state.edit ? <span>{item.numOfSeat}</span> 
-                    : <input type="number" name="numOfSeat" 
-                    value={item.numOfSeat} readOnly={!state.edit}
-                    onChange={event => changeItem(idx, {'numOfSeat': event.target.value}) }
-                  />}</td>
-                  <td><button onClick={() => {
-                      if (state.edit) changeItem(idx, {'available': 1-item.available})
-                      }
-                  }> {item.available === 1 ? 'Yes' : 'No'}</button></td>
+            <td>{!state.edit ? <span>{item.numOfSeat}</span> 
+              : <input type="number" name="numOfSeat" 
+              value={item.numOfSeat} readOnly={!state.edit}
+              onChange={evt => dispatch({
+                type: TABLE_CHANGE, data: {idx, obj: {'numOfSeat': evt.target.value}} }) }
+            />}</td>
+            <td><button onClick={() => {
+              if(edit) dispatch({
+                  type: TABLE_CHANGE, data: {idx, obj: {'available': 1-item.available}} 
+                }) }
+            }> {item.available === 1 ? 'Yes' : 'No'}</button></td>
 
-                  { props.account.role === 'admin' ? null 
-                    : <td><Link to={`/order/${item.id}`}>Go To Table</Link></td>}
-                  {state.edit ? <td><button onClick={() => tableFn.deleteOne(item.id) }>Delete</button></td>
-                    : null }
-                </tr>
-              )
-            )}
+            { state.account.role !== 'admin' && 
+              <td><Link to={`/order/${item.id}`}>Go To Table</Link></td>}
+            {edit ? <td><button onClick={() => dispatch({type: TABLE_DELETE, data: item.id}) }>Delete</button></td>
+              : null }
+          </tr>
+          )
+        )}
         </tbody>
       </table>
 
-      <button onClick={tableFn.updateTables(state.tables)}>update</button>
+      {/* <button onClick={tableFn.updateTables(state.tables)}>update</button> */}
     </div>
   )
 

@@ -5,14 +5,14 @@ export default (state, action, dispatch) => {
     case ACCOUNT_SIGNIN:
       const username = action.data.username
       if(username === 'admin') 
-        return {...state, authenticated: true, edit: true}
+        return {...state, authenticated: true, edit: {table: true}}
       else if (username === 'worker')
-        return {...state, authenticated: true, edit: false}
-      return {...state, authenticated: false, edit: false, account: {
+        return {...state, authenticated: true, edit: {table: false}}
+      return {...state, authenticated: false, edit: {table: false}, account: {
         role: '', username: '', password: ''}}
 
     case ACCOUNT_SIGNOUT:
-      return {...state, authenticated: false, edit: false, account: {
+      return {...state, authenticated: false, edit: {table: false}, account: {
         role: '', username: '', password: ''}}
 
     case ACCOUNT_SYNC:
