@@ -4,6 +4,7 @@ export default (state, action, dispatch) => {
   switch(action.type){
     case ACCOUNT_SIGNIN:
       const username = action.data.username
+      dispatch({...state, current: {...state.current, click: true}})
       if(username === 'admin') 
         return {...state, authenticated: true, edit: {table: true}}
       else if (username === 'worker')

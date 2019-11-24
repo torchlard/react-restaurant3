@@ -44,7 +44,6 @@ const Home = () => {
           <Route path="/order/:tableId" component={Order} />
           <Route path="/suborder" component={Suborder} /> } /> 
 
-
         </Router>
     )
 }

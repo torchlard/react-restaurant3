@@ -21,7 +21,8 @@ export const initState = {
     status: 'serving', paid: 0, change: 0,
     suborder: false,
     currentCat: '',
-    title: ''
+    title: '',
+    click: false
   },
   tableId: -1,
   masterId: -1,
