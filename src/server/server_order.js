@@ -5,7 +5,7 @@ import masterFn from './server_masterOrder'
 
 const dbGet = name => JSON.parse(localStorage.getItem(name));
 
-const fn = {
+export default fn = {
   // get current table orders list
   'getTableOrders': masterId => {
     if(masterId === -1) return []
@@ -50,7 +50,7 @@ const fn = {
 }
 
 
-export default fn
+// export default fn
 
 
 

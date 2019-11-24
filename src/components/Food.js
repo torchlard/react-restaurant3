@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import foodFn from '../server/server_food'
+import {GlobalContext} from '../GlobalContext'
+import { FOOD_INIT, FOOD_SETCAT, SUBORDER_ADD } from '../constants/actionTypes'
 
-const Food = props => {
+const Food = () => {
 
-  const categories = foodFn.getAllCategory();
-  const [currentCat, setCat] = useState(categories[0])
-  const [foods, setFoods] = useState([])
+  const [state, dispatch] = useContext(GlobalContext)
 
-  useEffect(() => {
-    setFoods(foodFn.getAll())
-  }, [])
+  useEffect(() => dispatch(FOOD_INIT), [])
 
   return (
     <div>
       <ul style={{listStyleType: 'none' }}>
-        {categories.map((item,idx) => 
+        {state.categories.map((item,idx) => 
           <li key={idx} style={{float: 'left'}} >
-            <button onClick={() => setCat(item)}>{item}</button>  
+            <button onClick={() => dispatch({type: FOOD_SETCAT, item: item})}>{item}</button>  
           </li>
         )}
       </ul>
@@ -29,11 +27,13 @@ const Food = props => {
         </tr></thead>
         
         <tbody>
-          { foods
-              .filter(i => i.category === currentCat)
+          { state.foods
+              .filter(i => i.category === state.currentCat)
               .map((item, idx) => (
-                <tr key={item.id} onClick={() => props.addOrder({
-                  id:item.id, name:item.name, price:item.price, quantity:1, warning: ''})} >
+                <tr key={item.id} 
+                  onClick={() => dispatch({type: SUBORDER_ADD, 
+                    item: {id:item.id, name:item.name, price:item.price, quantity:1, warning: ''}})}
+                  >
                   <td> {item.name} </td>
                   <td> {item.price} </td>
                   <td> {item.quantity} </td>

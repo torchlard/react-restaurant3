@@ -11,9 +11,21 @@ export const initState = {
   account: {
     role: 'worker', username: 'worker', password: '123'
   },
-  orders: [],
   tables: [],
-  masterOrders: []
+  masterOrders: [],
+  orders: [],     // id, orderQty, arriveQty, name, price
+  suborders: [],  // id, name, price, quantity, maxqty, warning 
+  foods: [],      // name, price, quantity, category
+  categories,
+  current: {
+    status: 'serving', paid: 0, change: 0,
+    suborder: false,
+    currentCat: ''
+  },
+  tableId: -1,
+  masterId: -1,
+  isSuccess: true,  // return value 
+  resultData: []
 }
 
 export const GlobalContext = React.createContext({

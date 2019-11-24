@@ -2,6 +2,7 @@ import React, {useReducer} from 'react'
 import {BrowserRouter as Router,Link} from 'react-router-dom'
 import tableFn from '../server/server_table'
 import { TABLE_EDIT, TABLE_CHANGE, TABLE_DELETE } from '../constants/actionTypes'
+import GlobalContext from '../GlobalContext'
 
 const Table = () => {
 

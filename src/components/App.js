@@ -9,6 +9,7 @@ import orig_staff_data from '../data/staff_data'
 import orig_table_data from '../data/table_data'
 import { initState } from '../GlobalContext';
 import accountReducer from '../reducers/account'
+import GlobalContext from '../GlobalContext'
 
 const combineReducer = (dispatch, state, action, reducers) => {
     const data = (typeof action === "string") ? {type: action} : action

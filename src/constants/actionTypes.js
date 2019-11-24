@@ -7,8 +7,19 @@ export const TABLE_EDIT = 'TABLE_EDIT'
 export const TABLE_DELETE = 'TABLE_DELETE'
 export const TABLE_CHANGE = 'TABLE_CHANGE'
 
+export const ORDER_INIT = 'ORDER_INIT'
+export const ORDER_ADD = 'ORDER_ADD'
+export const ORDER_DELETE = 'ORDER_DELETE'
 
+export const SUBORDER_INIT = 'SUBORDER_INIT'
+export const SUBORDER_TOGGLE = 'SUBORDER_TOGGLE'
+export const SUBORDER_ADD = 'SUBORDER_ADD'
+export const SUBORDER_DELETE = 'SUBORDER_DELETE'
+export const SUBORDER_CHANGEQTY = 'SUBORDER_CHANGEQTY'
+export const SUBORDER_FAILED = 'SUBORDER_FAILED'
 
+export const FOOD_INIT = 'FOOD_INIT'
+export const FOOD_SETCAT = 'FOOD_SETCAT'
 
 
 

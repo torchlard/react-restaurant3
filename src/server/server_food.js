@@ -18,11 +18,11 @@ const fn = {
 
   // input: [{id, quantity}, ... ], output: [{orderId, maxQty}, ...]
   'consumeFood': orders => {
-    let invalid = [];
+    
     const food_data = dbGet()
 
     // if any fail, not consume any
-    orders.forEach(item => {
+    orders.forEach((item,idx) => {
       const maxQty = food_data.filter(f => f.id === item.id)[0].quantity
       if(maxQty < item.quantity)
         invalid.push({id: item.id, maxQty: maxQty})
