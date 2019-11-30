@@ -1,45 +1,40 @@
-import React, {useContext, useEffect, useRef} from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Home from './Home';
 import { GlobalContext } from '../GlobalContext';
-import {ACCOUNT_SYNC, ACCOUNT_SIGNIN, ACCOUNT_SIGNOUT} from '../constants/actionTypes'
+import {ACCOUNT_SIGNIN, ACCOUNT_SIGNOUT} from '../constants/actionTypes'
 
 
 
 export default () => {
 
   const {state, dispatch} = useContext(GlobalContext)
-  const dispatch2 = useRef(dispatch)
+  // const dispatch2 = useRef(dispatch)
 
   useEffect(() => {
     if(!state.authenticated && state.current.click) window.alert('wrong info')
   }, [state.authenticated])
 
-
-  const LoginButton = () => <button id="login" onClick={() => dispatch2(ACCOUNT_SIGNIN)}>Login</button>
-  const LogoutButton = () => <button id="logout" onClick={() => dispatch2(ACCOUNT_SIGNOUT)}>Logout</button>;
-
-
   const Login = () => {
-    const triggerLogin = evt => {if(evt.key === 'Enter') document.getElementById("login").click() };
+    const [ac, setAc] = useState({username: 'worker', password: '123'})
+
     return (
-      <div>
+      <form onSubmit={() => dispatch({type: ACCOUNT_SIGNIN, data: ac})}>
         <h2>Restaurant Management System</h2>
         <label>Username: 
-          <input required type="text" value={state.username} id="name" name="username" 
-            onChange={evt => dispatch2({type: ACCOUNT_SYNC, data: {type: 'username', payload: evt.target.value}})}
-            onKeyPress={ triggerLogin } 
+          <input required type="text" id="name" name="username" value={ac.username}
+            onChange={evt => setAc({username: evt.target.value, password: ac.password})}
           />
         </label>
         <label>Password:
-          <input required type="password" value={state.password} id="password"
-            name="password" 
-            onChange={evt => dispatch2({type: ACCOUNT_SYNC, data: {type: 'password', payload: evt.target.value}})}
-            onKeyPress={ triggerLogin } />
+          <input required type="password" id="password"
+            name="password" value={ac.password}
+            onChange={evt => setAc({username: ac.username, password: evt.target.value})}
+            />
         </label>
 
-        <LoginButton />
-      </div>
+        <input type="submit" value="Login" />
+      </form>
   
     )
   }
@@ -48,7 +43,6 @@ export default () => {
     <Router>
       <Switch>
         <Route exact path="/" render={() => state.authenticated ? <Redirect to="/home" /> : <Login /> } />
-        <Route path="/" component={LogoutButton} />
         <Route path="/home" render={() => state.authenticated ? <Home /> : <Redirect to="/" /> } />
       </Switch>
 

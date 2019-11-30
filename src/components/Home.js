@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import Header from './Header'
 // import ManagementMenu from './manage_menu'
@@ -8,13 +8,18 @@ import {GlobalContext} from '../GlobalContext'
 import Table from './Table'
 import Order from './Order'
 import Suborder from './Suborder'
+import { TABLE_INIT } from '../constants/actionTypes'
 // import User from './User'
 // import Menu from './Menu'
+import tableFn from '../server/server_table'
 
 
 const Home = () => {
 
-  const {state} = useContext(GlobalContext)
+  const {state, dispatch} = useContext(GlobalContext)
+  useEffect(() => {
+    dispatch(TABLE_INIT);
+  }, [])
 
   return (state.account.role === 'admin') 
     ? ( 
@@ -40,9 +45,9 @@ const Home = () => {
           <Link to="/table">Table</Link>
 
           <Route path="/home" component={Table} />
-          <Route path="/table" component={Table} />
+          {/* <Route path="/table" component={Table} /> */}
           <Route path="/order/:tableId" component={Order} />
-          <Route path="/suborder" component={Suborder} /> } /> 
+          <Route path="/suborder" component={Suborder} />  
 
         </Router>
     )

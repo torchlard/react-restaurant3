@@ -1,6 +1,7 @@
 import { ORDER_ADD, ORDER_DELETE, ORDER_INIT } from '../constants/actionTypes'
 import orderFn from '../server/server_order'
 import tableFn from '../server/server_table'
+import masterFn from '../server/server_masterOrder'
 
 export default (state, action, dispatch) => {
   switch(action.type){
@@ -9,7 +10,7 @@ export default (state, action, dispatch) => {
       return {...state, orders: orderFn.getTableOrders(masterId), 
         tableNo: tableFn.getNoById(action.tableId),
         masterOrderId: masterId,
-        current: {...current, suborder: true}
+        current: {...state.current, suborder: true}
       }
 
     case ORDER_ADD:
@@ -34,7 +35,7 @@ export default (state, action, dispatch) => {
       })
       console.log("orderList")
       console.log(orderList)
-      return { orders:orderList, suborders: [], current: {...current, suborders: false}};
+      return { orders:orderList, suborders: [], current: {...state.current, suborders: false}};
 
     case ORDER_DELETE:
       const orderId = Number(action.data)

@@ -3,7 +3,7 @@ const dbGet = () => JSON.parse(localStorage.getItem('tables'));
 const fn = {
   'updateTables': tables => localStorage.setItem('tables', JSON.stringify(tables)),
 
-  'getAll': dbGet,
+  'getAll': () => dbGet(),
 
   'deleteOne': idx => {
     const tables = dbGet()

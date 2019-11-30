@@ -9,9 +9,9 @@ export const initState = {
     edit: false
   },
   account: {
-    role: 'worker', username: 'worker', password: '123'
+    role: '', username: '', password: ''
   },
-  tables: [],
+  tables: [1,2],
   masterOrders: [],
   orders: [],     // id, orderQty, arriveQty, name, price
   suborders: [],  // id, name, price, quantity, maxqty, warning 

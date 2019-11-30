@@ -9,6 +9,10 @@ import orig_staff_data from '../data/staff_data'
 import orig_table_data from '../data/table_data'
 import { initState } from '../GlobalContext';
 import accountReducer from '../reducers/account'
+import foodReducer from '../reducers/food'
+import orderReducer from '../reducers/order'
+import suborderReducer from '../reducers/suborder'
+import tableReducer from '../reducers/table'
 import {GlobalContext} from '../GlobalContext'
 
 const combineReducer = (dispatch, state, action, reducers) => {
@@ -38,7 +42,7 @@ export default () => {
   const props = {
     state: state,
     dispatch: a => combineReducer(dispatch, state, a, 
-      [accountReducer] )
+      [accountReducer, foodReducer, orderReducer, suborderReducer, tableReducer] )
   }
 
   return (
