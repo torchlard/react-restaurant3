@@ -5,7 +5,11 @@ export default (state, action, dispatch) => {
   switch(action.type){
     case FOOD_INIT:
       const categories = foodFn.getAllCategory()
-      return {...state, foods: foodFn.getAll(), categories: categories,
+      const foods = foodFn.getAll()
+      console.log('food_init')
+      console.log(categories)
+      console.log(foods)
+      return {...state, foods: foods, categories: categories,
         current: {...state.current, currentCat: categories[0]} }
 
     case FOOD_SETCAT:

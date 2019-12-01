@@ -7,15 +7,18 @@ export default (state, action, dispatch) => {
   switch(action.type){
     case ORDER_INIT:
       const masterId = masterFn.getMasterId(action.tableId)
+      console.log('order_init', masterId)
       return {...state, orders: orderFn.getTableOrders(masterId), 
         tableNo: tableFn.getNoById(action.tableId),
         masterOrderId: masterId,
+        tableId: action.tableId, 
+        masterId: masterId,
         current: {...state.current, suborder: true}
       }
 
     case ORDER_ADD:
       // const orders = action.data
-      const res = orderFn.addOrders(state.suborders)
+      const res = orderFn.addOrders(state.suborders, state.masterOrderId)
       if (!res.result) 
         return {...state, suborders: res.orders};
 
@@ -30,12 +33,13 @@ export default (state, action, dispatch) => {
           orderList[idx].ordered_qty += i.quantity;
         } else {
           orderList.push({id: i.id, orderQty: i.quantity, 
-            arriveQty: 0, name: i.name, price: i.price})
+            arriveQty: 0, name: i.name, price: i.price, foodId: i.foodId })
         }
       })
       console.log("orderList")
       console.log(orderList)
-      return { orders:orderList, suborders: [], current: {...state.current, suborders: false}};
+
+      return {...state, orders:orderList, suborders: [], current: {...state.current, suborder: false}};
 
     case ORDER_DELETE:
       const orderId = Number(action.data)

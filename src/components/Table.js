@@ -15,7 +15,7 @@ const Table = () => {
 
   return (
     <div>
-      {/* {state.permit.edit && <button onClick={() => dispatch(TABLE_EDIT) }>{edit ? 'Edit' : 'Read only'}</button> } */}
+      {state.permit.edit && <button onClick={() => dispatch(TABLE_EDIT) }>{edit ? 'Edit' : 'Read only'}</button> }
 
       <table>
         <thead>

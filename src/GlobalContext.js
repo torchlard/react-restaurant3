@@ -13,10 +13,10 @@ export const initState = {
   },
   tables: [],
   masterOrders: [],
-  orders: [],     // id, orderQty, arriveQty, name, price
+  orders: [],     // id, orderQty, arriveQty, name, price, foodId
   suborders: [],  // id, name, price, quantity, maxqty, warning 
   foods: [],      // name, price, quantity, category
-  categories: '',
+  categories: [],
   current: {
     status: 'serving', paid: 0, change: 0,
     suborder: false,
@@ -26,7 +26,6 @@ export const initState = {
   },
   tableId: -1,
   masterId: -1,
-  tabkeNo: -1,
   isSuccess: true,  // return value 
   resultData: []
 }

@@ -16,13 +16,16 @@ export default {
     const orders = order_data.filter(i => i.masterorder_id === masterId)
 
     const results = orders.map(i => {
-      const food = food_data.find(j => j.id === i.food_id);
+      const food = food_data.find(j => j.id === i.id);
+      console.log(food)
+      console.log(i)
       return {
-        orderId: i.id, 
-        ordered_qty: i.ordered_qty,
-        arrived_qty: i.arrived_qty,
-        foodName: food.name, 
-        price: food.price }
+        id: i.id, 
+        orderQty: i.ordered_qty,
+        arriveQty: i.arrived_qty,
+        name: food.name, 
+        price: food.price,
+        foodId: i.id }
     })
     // const tableNo = table_data.find(i => i.id === tableId).tableNo
     return results
@@ -37,12 +40,18 @@ export default {
   },
 
   // check if food enough, reduce food quantity and add to order list
-  'addOrders': orders => {
+  'addOrders': (orders, masterid) => {
     const res = foodFn.consumeFood(orders);
+    console.log(res)
     if (!res.result) return res;
 
-    const order_data = dbGet('orders')
-    order_data.push(orders);
+    const order_data = [...dbGet('orders')]
+    const newid = order_data[order_data.length-1]['id']+1
+    // order_data = order_data.concat(orders)
+    for(let i of orders){
+      order_data.push({id: newid, ordered_qty: i.quantity, arrived_qty: 0, 
+        masterorder_id: masterid, food_id: i.foodId })
+    }
     localStorage.setItem('orders', JSON.stringify(order_data))
     return res
   }

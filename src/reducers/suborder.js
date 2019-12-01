@@ -5,16 +5,19 @@ import foodFn from '../server/server_food'
 export default (state, action, dispatch) => {
   switch(action.type){
     case SUBORDER_INIT:
+      console.log('suborder_init')
       return {...state, suborders: [] }
 
     case SUBORDER_TOGGLE:
       return {...state, current: {...state.current, suborder: action.data} }
 
     case SUBORDER_ADD:
-      const idx = action.id
-      let res = state.find(i => i.id === idx)
+      const idx = action.item.id
+      let res = state.suborders.find(i => i.id === idx)
+      // console.log('idx:'+idx)
+      // console.log(res)
       if(res === undefined)
-        return {...state, suborders: state.suborder.concat(action.item) }
+        return {...state, suborders: state.suborders.concat(action.item) }
       res.quantity++;
       return {...state, suborders: state.suborders.map(i => i.id === idx ? res : i)}
 

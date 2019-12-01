@@ -5,9 +5,8 @@ import { FOOD_INIT, FOOD_SETCAT, SUBORDER_ADD } from '../constants/actionTypes'
 const Food = () => {
 
   const {state, dispatch} = useContext(GlobalContext)
-  // const dispatch = useRef(_dispatch)
 
-  useEffect(() => dispatch(FOOD_INIT), [])
+  // useEffect(() => dispatch(FOOD_INIT), [])
 
   return (
     <div>
@@ -28,9 +27,9 @@ const Food = () => {
         
         <tbody>
           { state.foods
-              .filter(i => i.category === state.currentCat)
+              .filter(i => i.category === state.current.currentCat)
               .map((item, idx) => (
-                <tr key={item.id} 
+                <tr key={idx} 
                   onClick={() => dispatch({type: SUBORDER_ADD, 
                     item: {id:item.id, name:item.name, price:item.price, quantity:1, warning: ''}})}
                   >

@@ -9,8 +9,9 @@ import { ORDER_INIT, ORDER_DELETE } from '../constants/actionTypes'
 const Order = () => {
 
   const {state, dispatch} = useContext(GlobalContext)
-  // const dispatch = useRef(_dispatch)
-  const tableId = useRef(Number(useParams().tableId))
+  // const tableId = useRef(Number(useParams()['tableId']))
+  const tableId = Number(useParams()['tableId'])
+  
   useEffect(() => {
     dispatch({type: ORDER_INIT, tableId: tableId})
   }, [])

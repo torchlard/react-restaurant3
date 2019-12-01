@@ -3,7 +3,7 @@ const dbGet = () => JSON.parse(localStorage.getItem('tables'));
 const fn = {
   'updateTables': tables => localStorage.setItem('tables', JSON.stringify(tables)),
 
-  'getAll': () => dbGet(),
+  'getAll': dbGet,
 
   'deleteOne': idx => {
     const tables = dbGet()
@@ -11,8 +11,10 @@ const fn = {
   },
 
   'getNoById': id => {
-      return id===-1 ? [] : dbGet().find(i => i.id === Number(id)).tableNo
-    }
+      if(id === -1) return []
+      const table = dbGet().find(i => i.id === Number(id))
+      return table === undefined ? [] : table.tableNo
+    } 
 }
 
 export default fn;

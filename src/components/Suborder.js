@@ -1,14 +1,16 @@
 import React, {useContext, useEffect, useRef} from 'react'
 import {Redirect} from 'react-router-dom'
 import Food from './Food'
-import { SUBORDER_CHANGEQTY, SUBORDER_DELETE, ORDER_ADD, SUBORDER_INIT } from '../constants/actionTypes'
+import { SUBORDER_CHANGEQTY, SUBORDER_DELETE, ORDER_ADD, SUBORDER_INIT, FOOD_INIT } from '../constants/actionTypes'
 import {GlobalContext} from '../GlobalContext'
 
 export default () => {
   const {state, dispatch} = useContext(GlobalContext)
   // const dispatch = useRef(_dispatch)
 
-  useEffect(() => dispatch(SUBORDER_INIT), [])
+  useEffect(() => { 
+    dispatch(SUBORDER_INIT); dispatch(FOOD_INIT)
+  }, [])
 
   // const sums = ll => {
   //   let data = 0
@@ -33,12 +35,12 @@ export default () => {
         <h3>Order List</h3>    
         <p>Table No: {state.tableNo}</p>
 
-        {state.suborders.map(i => (
-          <div key={i.id}>
+        {state.suborders.map((i,idx) => (
+          <div key={idx}>
             <span>{i.name}</span>
 
             <span><input type="number" value={i.quantity} min={1} 
-              style={ i.warning !== '' && {backgroundColor: '#f00'} }
+              style={ i.warning !== '' ? {backgroundColor: '#f00'} : {} }
               onChange={evt => dispatch({type: SUBORDER_CHANGEQTY, 
                 id: i.id, qty: evt.target.value })}
             /></span>

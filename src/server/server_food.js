@@ -23,6 +23,7 @@ const fn = {
     let invalid = false
 
     // if any fail, not consume any
+    console.log(orders)
     orders.forEach((item,idx) => {
       const maxQty = food_data.filter(f => f.id === item.id)[0].quantity
       if(maxQty < item.quantity){
@@ -41,7 +42,7 @@ const fn = {
     });
 
     localStorage.setItem('foods', JSON.stringify(food_data))
-    return {result: true, order: orders};
+    return {result: true, orders: orders};
   },
 
   'getAllCategory': () => {

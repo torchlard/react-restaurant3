@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react'
-import {BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 import Header from './Header'
 // import ManagementMenu from './manage_menu'
 // import ReportMenu from './report_menu'
@@ -40,9 +40,10 @@ const Home = () => {
         <Router>
           <Header />
           <Link to="/table">Table</Link>
+          <Redirect to="/table" />
 
-          <Route path="/home" component={Table} />
-          {/* <Route path="/table" component={Table} /> */}
+          {/* <Route path="/home" component={Table} /> */}
+          <Route path="/table" component={Table} />
           <Route path="/order/:tableId" component={Order} />
           <Route path="/suborder" component={Suborder} />  
 

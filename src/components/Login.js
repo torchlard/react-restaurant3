@@ -11,8 +11,6 @@ const LoginEx = () => {
   const {state, dispatch} = useContext(GlobalContext)
   // const dispatch2 = useRef(dispatch)
 
-  useEffect(() => console.log('Login.js'), [])
-
   useEffect(() => {
     if(state.current.authError) window.alert('wrong info')
   }) //, [state.current.authError])
