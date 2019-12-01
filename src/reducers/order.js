@@ -24,7 +24,7 @@ export default (state, action, dispatch) => {
       // success, update local order list
       let orderList = [...state.orders];
 
-      res.orders.map(i => {
+      res.orders.forEach(i => {
         let idx = orderList.findIndex(j => j.orderId === i.id);
         if (idx !== -1){
           orderList[idx].ordered_qty += i.quantity;
@@ -42,7 +42,7 @@ export default (state, action, dispatch) => {
       const lists = state.orders.filter(i => i.orderId !== orderId);
       orderFn.deleteOrder(orderId)
       return {...state, orders: lists}
-      
+
   }
 }
 

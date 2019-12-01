@@ -11,7 +11,7 @@ export const initState = {
   account: {
     role: '', username: '', password: ''
   },
-  tables: [1,2],
+  tables: [],
   masterOrders: [],
   orders: [],     // id, orderQty, arriveQty, name, price
   suborders: [],  // id, name, price, quantity, maxqty, warning 
@@ -22,7 +22,7 @@ export const initState = {
     suborder: false,
     currentCat: '',
     title: '',
-    click: false
+    authError: false
   },
   tableId: -1,
   masterId: -1,
@@ -32,7 +32,7 @@ export const initState = {
 }
 
 export const GlobalContext = React.createContext({
-  state: initState,
+  state: {},
   dispatch: () => {}
 })
 

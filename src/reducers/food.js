@@ -11,8 +11,6 @@ export default (state, action, dispatch) => {
     case FOOD_SETCAT:
       return {...state, current: {...state.current, currentCat: action.item}}
 
-    
-
   }
 }  
 

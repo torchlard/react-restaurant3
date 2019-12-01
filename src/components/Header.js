@@ -3,29 +3,8 @@ import { Link} from 'react-router-dom';
 import { GlobalContext } from '../GlobalContext';
 import { ACCOUNT_SIGNOUT } from '../constants/actionTypes';
 
-
-
-// const Header = (props) => (
-//   <div>
-//     { withRouter(({history}) => 
-//       <button onClick={() => {
-//         props.signout();
-//         history.push("/")
-//       }}> Logout </button>
-//     )}
-
-//     <button><Link to="/home">Home</Link></button>
-//       {props.title}
-//   </div>
-// )
-
 const Header = () => {
   const {state, dispatch} = useContext(GlobalContext)
-
-  // const Gohome = withRouter(({history}) => 
-  //     <button onClick={() => {
-  //       props.signout(); history.push("/")
-  //     }}> Logout </button> )
 
   return (
     <div>

@@ -20,6 +20,7 @@ const combineReducer = (dispatch, state, action, reducers) => {
     reducers.forEach(fn => {
       const res = fn(state, data, dispatch)
       if(res !== undefined) {
+        // console.log(res)
         dispatch(res)
       }
     });

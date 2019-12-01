@@ -17,9 +17,6 @@ import tableFn from '../server/server_table'
 const Home = () => {
 
   const {state, dispatch} = useContext(GlobalContext)
-  useEffect(() => {
-    dispatch(TABLE_INIT);
-  }, [])
 
   return (state.account.role === 'admin') 
     ? ( 

@@ -15,8 +15,7 @@ const Table = () => {
 
   return (
     <div>
-      {state.permit.edit &&
-        <button onClick={() => dispatch(TABLE_EDIT) }>{edit ? 'Edit' : 'Read only'}</button> }
+      {/* {state.permit.edit && <button onClick={() => dispatch(TABLE_EDIT) }>{edit ? 'Edit' : 'Read only'}</button> } */}
 
       <table>
         <thead>
@@ -29,24 +28,19 @@ const Table = () => {
         <tbody>
         { 
           state.tables.map((item, idx) => (
-          <tr key={item.id}>
-            <td>{!state.edit ? <span>{item.tableNo}</span> 
-                : <input type="text" name="tableNo" value={item.tableNo} readOnly={!edit}
-                  onChange={evt => dispatch({type: TABLE_CHANGE, data: {idx, obj: {'tableNo': evt.target.value}} }) }
-              />}</td>
+          <tr key={idx}>
+            <td><input type="text" name="tableNo" value={item.tableNo} readOnly={!edit}
+                onChange={evt => dispatch({type: TABLE_CHANGE, data: {idx, obj: {'tableNo': evt.target.value}} }) }/></td>
 
-            <td>{!state.edit ? <span>{item.numOfSeat}</span> 
-              : <input type="number" name="numOfSeat" value={item.numOfSeat} readOnly={!state.edit}
-                onChange={evt => dispatch({type: TABLE_CHANGE, data: {idx, obj: {'numOfSeat': evt.target.value}} }) }
-            />}</td>
+            <td><input type="number" name="numOfSeat" value={item.numOfSeat} readOnly={!edit}
+                onChange={evt => dispatch({type: TABLE_CHANGE, data: {idx, obj: {'numOfSeat': evt.target.value}} })}/></td>
             <td><button onClick={() => {
               if(edit) dispatch({type: TABLE_CHANGE, data: {idx, obj: {'available': 1-item.available}} }) }
             }> {item.available === 1 ? 'Yes' : 'No'}</button></td>
 
             { state.account.role !== 'admin' && <td><Link to={`/order/${item.id}`}>Go To Table</Link></td>}
-            {state.edit.table && <td><button onClick={() => dispatch({type: TABLE_DELETE, data: item.id}) }>Delete</button></td>}
+            {edit && <td><button onClick={() => dispatch({type: TABLE_DELETE, data: item.id}) }>Delete</button></td>}
           </tr>
-
         ))
         }
         </tbody>

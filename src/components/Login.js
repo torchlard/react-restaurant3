@@ -1,21 +1,23 @@
 import React, {useState, useContext, useEffect, useRef} from 'react';
-import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch, withRouter} from 'react-router-dom'
 import Home from './Home';
 import { GlobalContext } from '../GlobalContext';
 import {ACCOUNT_SIGNIN, ACCOUNT_SIGNOUT} from '../constants/actionTypes'
 
 
 
-export default () => {
+const LoginEx = () => {
 
   const {state, dispatch} = useContext(GlobalContext)
   // const dispatch2 = useRef(dispatch)
 
-  useEffect(() => {
-    if(!state.authenticated && state.current.click) window.alert('wrong info')
-  }, [state.authenticated])
+  useEffect(() => console.log('Login.js'), [])
 
-  const Login = () => {
+  useEffect(() => {
+    if(state.current.authError) window.alert('wrong info')
+  }) //, [state.current.authError])
+
+  const Login = props => {
     const [ac, setAc] = useState({username: 'worker', password: '123'})
 
     return (
@@ -24,7 +26,7 @@ export default () => {
         <label>Username: 
           <input required type="text" id="name" name="username" value={ac.username}
             onChange={evt => setAc({username: evt.target.value, password: ac.password})}
-          />
+            />
         </label>
         <label>Password:
           <input required type="password" id="password"
@@ -33,9 +35,11 @@ export default () => {
             />
         </label>
 
-        <input type="submit" value="Login" />
+        {/* <button onClick={() => { props.history.push("/home") }}>Login</button> */}
+        {/* <button onClick={() => { dispatch({type: ACCOUNT_SIGNIN, data: ac}); props.history.push("/home") }}>Login</button> */}
+        <input type="submit" value="Login" onClick={() => dispatch({type: ACCOUNT_SIGNIN, data: ac})}/>
       </form>
-  
+    
     )
   }
 
@@ -43,14 +47,14 @@ export default () => {
     <Router>
       <Switch>
         <Route exact path="/" render={() => state.authenticated ? <Redirect to="/home" /> : <Login /> } />
-        <Route path="/home" render={() => state.authenticated ? <Home /> : <Redirect to="/" /> } />
+        <Route path="/home" render={() => state.authenticated ? <Home /> : <Redirect to="/" /> } /> 
       </Switch>
 
     </Router>
   )
 }
 
-
+export default LoginEx
 
 
 
