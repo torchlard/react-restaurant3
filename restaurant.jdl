@@ -1,0 +1,30 @@
+application {
+  config {
+    baseName be-restaurant      
+    applicationType monolith
+    packageName com.example.demo
+    authenticationType jwt
+    prodDatabaseType mariadb
+    buildTool gradle
+    serverPort 8081
+    skipClient true
+  }
+  entities 
+}
+
+entity Food {
+  id Long required
+  name String required
+  price Float required
+  quantity Integer required
+  category Enum required
+}
+
+
+
+
+
+
+
+
+

@@ -14,7 +14,7 @@ export const initState = {
   tables: [],
   masterOrders: [],
   orders: [],     // id, orderQty, arriveQty, name, price, foodId
-  suborders: [],  // id, name, price, quantity, maxqty, warning 
+  suborders: [],  // id, name, price, quantity, maxqty, warning, foodId 
   foods: [],      // name, price, quantity, category
   categories: [],
   current: {

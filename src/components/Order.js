@@ -39,7 +39,7 @@ const Order = () => {
               <td>{item.arriveQty}</td>
               <td>{item.price}</td>
               <td><button onClick={() => dispatch(
-                {type:ORDER_DELETE, data: item.id})}>Delete</button></td>
+                {type:ORDER_DELETE, id: item.id})}>Delete</button></td>
             </tr>
           ))}
         </tbody>

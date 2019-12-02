@@ -8,7 +8,8 @@ export default (state, action, dispatch) => {
     case ORDER_INIT:
       const masterId = masterFn.getMasterId(action.tableId)
       console.log('order_init', masterId)
-      return {...state, orders: orderFn.getTableOrders(masterId), 
+      return {...state, 
+        orders: orderFn.getTableOrders(masterId), 
         tableNo: tableFn.getNoById(action.tableId),
         masterOrderId: masterId,
         tableId: action.tableId, 
@@ -22,8 +23,6 @@ export default (state, action, dispatch) => {
       if (!res.result) 
         return {...state, suborders: res.orders};
 
-      console.log("orders _ orderReducer")
-      console.log(res)
       // success, update local order list
       let orderList = [...state.orders];
 
@@ -36,14 +35,12 @@ export default (state, action, dispatch) => {
             arriveQty: 0, name: i.name, price: i.price, foodId: i.foodId })
         }
       })
-      console.log("orderList")
-      console.log(orderList)
 
       return {...state, orders:orderList, suborders: [], current: {...state.current, suborder: false}};
 
     case ORDER_DELETE:
-      const orderId = Number(action.data)
-      const lists = state.orders.filter(i => i.orderId !== orderId);
+      const orderId = Number(action.id)
+      const lists = state.orders.filter(i => i.id !== orderId);
       orderFn.deleteOrder(orderId)
       return {...state, orders: lists}
 

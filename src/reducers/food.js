@@ -7,8 +7,6 @@ export default (state, action, dispatch) => {
       const categories = foodFn.getAllCategory()
       const foods = foodFn.getAll()
       console.log('food_init')
-      console.log(categories)
-      console.log(foods)
       return {...state, foods: foods, categories: categories,
         current: {...state.current, currentCat: categories[0]} }
 

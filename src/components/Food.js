@@ -31,7 +31,7 @@ const Food = () => {
               .map((item, idx) => (
                 <tr key={idx} 
                   onClick={() => dispatch({type: SUBORDER_ADD, 
-                    item: {id:item.id, name:item.name, price:item.price, quantity:1, warning: ''}})}
+                    item: {id:item.id, name:item.name, price:item.price, quantity:1, warning: '', foodId: item.id}})}
                   >
                   <td> {item.name} </td>
                   <td> {item.price} </td>

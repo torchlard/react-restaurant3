@@ -25,7 +25,7 @@ const fn = {
     // if any fail, not consume any
     console.log(orders)
     orders.forEach((item,idx) => {
-      const maxQty = food_data.filter(f => f.id === item.id)[0].quantity
+      const maxQty = food_data.filter(f => f.id === item.foodId)[0].quantity
       if(maxQty < item.quantity){
         orders[idx]['warning'] = 'not enough'
         orders[idx]['maxQty'] = maxQty
@@ -37,7 +37,7 @@ const fn = {
 
     // ok for all items
     orders.forEach(item => {
-      const idx = food_data.findIndex(f => f.id === item.id)
+      const idx = food_data.findIndex(f => f.id === item.foodId)
       food_data[idx].quantity += -item.quantity
     });
 
